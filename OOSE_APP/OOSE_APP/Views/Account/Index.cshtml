@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Account Page";
+}
+
+<div id="account-page">
+    <div id="login">
+        @using (Html.BeginForm("Login", "Account"))
+        {
+            <p>Email</p>
+            @Html.TextBox("email")
+
+            <p>Password</p>
+            @Html.Password("password")
+
+            <button>Login</button>
+        }
+    </div>    
+</div>

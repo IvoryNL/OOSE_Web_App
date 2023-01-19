@@ -1,0 +1,14 @@
+﻿@model List<Logic.Models.Rol>;
+@{
+    ViewData["Title"] = "Roles Page";
+}
+<div class="align-content-center">
+    <ul>
+        @foreach (var roleModel in Model)
+        {
+            <li>
+                @roleModel.RoleName
+            </li>
+        }
+    </ul>    
+</div>

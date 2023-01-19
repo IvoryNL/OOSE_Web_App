@@ -1,0 +1,52 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+header {
+    height: 200px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#account-page {
+    display: flex;
+    justify-content: center;
+}
+
+#account-page #login {
+    padding: 20px;
+    border: solid black 1px;
+
+}
+
+#account-page #login input {
+    width: 100%;
+    margin: -10px 0px 20px 0px;
+}
+
+#account-page #login button {
+    width: 100%;
+    margin-top: 20px;
+}
