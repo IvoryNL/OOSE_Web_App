@@ -54,5 +54,12 @@ namespace Logic.Services
 
             await _httpService.PutAsync(uri, gebruiker, jwtToken);
         }
+
+        public async Task<VolledigeGebruikerModelDto> GetGebruikerByEmail(string email, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Gebruiker/GetGebruikerByEmail/{email}";
+
+            return await _httpService.GetAsync<VolledigeGebruikerModelDto>(uri, jwtToken);
+        }
     }
 }

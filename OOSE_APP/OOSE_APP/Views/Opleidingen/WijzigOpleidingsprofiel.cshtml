@@ -1,0 +1,31 @@
+﻿@using Presentation.ViewModels.Opleidingen;
+@model OpleidingsprofielViewModel
+
+<div class="opleidingen-page">
+    <h3>Wijzig opleidingsprofiel</h3>
+    <div class="content">
+        @using (Html.BeginForm("WijzigOpleidingsprofiel", "Opleidingen"))
+        {
+            <table>
+                <tr>
+                    <td>Opleiding:</td>
+                    <td>@Html.DisplayFor(m => m.OpleidingVanStudent)</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Opleidingsprofiel"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeOpleidingsprofielId,
+                        Model.Opleidingsprofielen.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = m.Profielnaam,
+                            Selected = Model.OpleidingsprofielVanStudent != null && Model.OpleidingsprofielVanStudent.Id == m.Id
+                        }))
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.GeselecteerdeOpleidingsprofielId)
+            <button class="btn btn-primary">Wijzig</button>
+        }
+    </div>
+</div>

@@ -20,6 +20,13 @@ namespace Presentation.Controllers
             return roleClaim?.Value;
         }
 
+        protected string GetLoggedInUserEmail()
+        {
+            var claimsIdentity = GetClaimsIdentity();
+            var roleClaim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            return roleClaim?.Value;
+        }
+
         protected void SetIdentity()
         {
             var claimsIdentity = GetClaimsIdentity();

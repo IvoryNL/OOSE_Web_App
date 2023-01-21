@@ -2,13 +2,11 @@
 
 namespace Logic.Models
 {
-    public class Opleiding
+    public class Auteur
     {
         public int Id { get; set; }
 
-        public int VormId { get; set; }
-
-        [MaxLength(50)]
+        [MaxLength(80)]
         public string Naam { get; set; }
     }
 }

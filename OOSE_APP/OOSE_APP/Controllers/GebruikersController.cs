@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.Helpers;
 using OOSE_APP.Models;
 using HttpResponseException = System.Web.Http.HttpResponseException;
-using Presentation.ViewModels;
 using Logic.Models.Dto;
 using Logic.Services;
+using Presentation.ViewModels.Gebruikers;
 
 namespace Presentation.Controllers
 {
@@ -116,6 +116,7 @@ namespace Presentation.Controllers
                 viewModel.Gebruiker = await _gebruikerService.GetGebruikerById(id, jwtToken);
                 viewModel.Rollen = await _rolService.GetAllRollen(jwtToken);
                 viewModel.Opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
+                viewModel.Klassen = await _klasService.GetAllKlassen(jwtToken);
                 if (viewModel.Gebruiker.OpleidingId != null)
                 {
                     viewModel.Klassen = await _klasService.GetKlasenByOpleidingId((int)viewModel.Gebruiker.OpleidingId, jwtToken);
@@ -145,7 +146,7 @@ namespace Presentation.Controllers
                 return await HandleException(ex);
             }
 
-            return View(Index());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -168,7 +169,7 @@ namespace Presentation.Controllers
                 return await HandleException(ex);
             }
 
-            return View(Index());
+            return RedirectToAction("Index");
         }
 
         private async Task<ViewResult> HandleException(HttpResponseException ex)

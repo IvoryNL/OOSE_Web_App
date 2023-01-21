@@ -10,6 +10,8 @@ namespace Logic.Services.Interfaces
 
         Task<VolledigeGebruikerModelDto> GetGebruikerById(int id, string jwtToken);
 
+        Task<VolledigeGebruikerModelDto> GetGebruikerByEmail(string email, string jwtToken);
+
         Task UpdateGebruiker(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken);
 
         Task AddGebruikerToKlas(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken); 

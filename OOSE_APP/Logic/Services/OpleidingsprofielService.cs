@@ -1,4 +1,5 @@
 ﻿using Logic.Models;
+using Logic.Models.Constants;
 using Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace Logic.Services
             _httpService = httpService;
         }
 
-        public async Task<List<Opleidingsprofiel>> GetAllOpleidingsprofielen(string jwtToken)
+        public async Task<List<Opleidingsprofiel>> GetAllOpleidingsprofielenByOpleidingId(int opleidingId, string jwtToken)
         {
-            var uri = $"https://localhost:7081/api/Opleidingsprofiel/GetAll";
+            var uri = $"{ApiUrl.BASE_URL}/Opleidingsprofiel/GetAllOpleidingsprofielenByOpleidingId/{opleidingId}";
 
             return await _httpService.GetAsync<List<Opleidingsprofiel>>(uri, jwtToken);
         }

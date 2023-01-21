@@ -2,8 +2,9 @@
     ViewData["Title"] = "Account";
 }
 
-<div id="account-page">
-    <div id="login">
+<div class="account-page">
+    <h3>Inloggen</h3>
+    <div class="content">
         @using (Html.BeginForm("Login", "Account"))
         {
             <p>Email</p>
@@ -12,7 +13,7 @@
             <p>Password</p>
             @Html.Password("password")
 
-            <button>Login</button>
+            <button class="btn btn-primary">Login</button>
         }
     </div>    
 </div>

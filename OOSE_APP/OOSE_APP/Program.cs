@@ -21,6 +21,7 @@ builder.Services.AddScoped<IGebruikerService, GebruikerService>();
 builder.Services.AddScoped<IKlasService, KlasService>();
 builder.Services.AddScoped<IGebruikerService, GebruikerService>();
 builder.Services.AddScoped<IOpleidingService, OpleidingService>();
+builder.Services.AddScoped<IOpleidingsprofielService, OpleidingsprofielService>();
 
 var app = builder.Build();
 

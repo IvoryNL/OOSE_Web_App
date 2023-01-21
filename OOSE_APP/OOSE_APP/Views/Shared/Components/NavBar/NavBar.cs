@@ -26,12 +26,18 @@ namespace Presentation.Views.Shared.Components.NavBar
 
             }
 
-            if (rolnaam == Rollen.STUDENT || rolnaam == Rollen.DOCENT)
+            if (rolnaam == Rollen.STUDENT)
             {
                 menuItems.Add("Opleidingen");
+            }
+
+            if (rolnaam == Rollen.STUDENT || rolnaam == Rollen.DOCENT)
+            {
                 menuItems.Add("Tentamens");
                 menuItems.Add("Lessen");
             }
+
+            
 
             return menuItems.ToList();
         }

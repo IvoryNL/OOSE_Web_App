@@ -29,7 +29,7 @@ namespace Logic.Services
 
         public async Task<List<Klas>> GetKlasenByOpleidingId(int id, string jwtToken)
         {
-            var uri = $"{ApiUrl.BASE_URL}/Klas/GetByOpleidingId/{id}";
+            var uri = $"{ApiUrl.BASE_URL}/Klas/GetKlassenByOpleidingId/{id}";
 
             return await _httpService.GetAsync<List<Klas>>(uri, jwtToken);
         }

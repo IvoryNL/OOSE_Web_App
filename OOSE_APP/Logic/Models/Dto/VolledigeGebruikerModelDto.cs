@@ -6,7 +6,11 @@
 
         public int? OpleidingsprofielId { get; set; }
 
-        public List<Klas> Klassen { get; set; }
+        public Opleiding? Opleiding { get; set; }
+
+        public Opleidingsprofiel? Opleidingsprofiel { get; set; }
+
+        public List<Klas>? Klassen { get; set; }
 
         public List<TentamenVanStudent>? TentamensVanStudent { get; set; }
 

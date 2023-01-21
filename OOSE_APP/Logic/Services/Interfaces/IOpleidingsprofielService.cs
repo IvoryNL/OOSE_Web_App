@@ -1,14 +1,9 @@
 ﻿using Logic.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Services.Interfaces
 {
     public interface IOpleidingsprofielService
     {
-        Task<List<Opleidingsprofiel>> GetAllOpleidingsprofielen(string jwtToken);
+        Task<List<Opleidingsprofiel>> GetAllOpleidingsprofielenByOpleidingId(int opleidingId, string jwtToken);
     }
 }

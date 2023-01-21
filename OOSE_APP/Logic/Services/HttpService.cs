@@ -76,7 +76,7 @@ namespace Logic.Services
             await AddJwtHeader(request, jwtToken);
 
             var response = await _httpClient.SendAsync(request);
-            
+            var test = response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
                 throw new HttpResponseException(response);

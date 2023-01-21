@@ -1,7 +1,33 @@
-﻿@{
+﻿@using Logic.Models.Dto;
+@{
     ViewData["Title"] = "Opleidingen";
 }
 
+@model VolledigeGebruikerModelDto
+
 <div class="opleidingen-page">
-    
+    <h3>Mijn opleiding</h3>
+    <div class="content">
+        @{
+            var opleidingTekst = Model.Opleiding != null ? Model.Opleiding.Naam : "Niet gekoppeld aan een opleiding.";
+            var opleidingsprofielTekst = Model.Opleidingsprofiel != null ? Model.Opleidingsprofiel.Profielnaam : "Geen opleidingsprofiel";
+        }
+        
+        <table>
+            <tr>
+                <td>Opleiding:</td>
+                <td>@opleidingTekst</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Opleidingsprofiel:</td>
+                <td>@opleidingsprofielTekst</td>
+                @if (Model.Opleiding != null)
+                {
+                    <td>@Html.ActionLink("Wijzig opleidingsprofiel", "WijzigOpleidingsprofiel", "Opleidingen")</td>
+                }
+            </tr>
+        </table>
+
+    </div>
 </div>
