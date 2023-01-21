@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "OOSE_APP\Presentation.csproj", "{BC7B1794-B02A-411E-8541-F10EF70231A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{FE76864A-DCB1-4D43-9B65-208CC3963992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{FE76864A-DCB1-4D43-9B65-208CC3963992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

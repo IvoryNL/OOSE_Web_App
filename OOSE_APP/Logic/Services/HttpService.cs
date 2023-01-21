@@ -67,7 +67,8 @@ namespace Logic.Services
         {
             await AddJwtHeader(request, jwtToken);
 
-            await _httpClient.SendAsync(request);
+            var response = await _httpClient.SendAsync(request);
+            var test  = response.Content.ReadAsStringAsync();
         }
 
         private async Task<T> SendRequest<T>(HttpRequestMessage request, string jwtToken)

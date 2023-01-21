@@ -1,27 +1,28 @@
 ﻿using Logic.Models;
+using Logic.Models.Constants;
 using Logic.Services.Interfaces;
 
 namespace Logic.Services
 {
-    public class RolesService : IRolesService
+    public class RolService : IRolService
     {
         private readonly IHttpService _httpService;
 
-        public RolesService(IHttpService httpService)
+        public RolService(IHttpService httpService)
         {
             _httpService = httpService;
         }
 
-        public async Task<List<Rol>> GetAll(string jwtToken)
+        public async Task<List<Rol>> GetAllRollen(string jwtToken)
         {
-            var uri = "https://localhost:7081/api/role/getall";
+            var uri = $"{ApiUrl.BASE_URL}/Rol/GetAll";
 
             return await _httpService.GetAsync<List<Rol>>(uri, jwtToken);
         }
 
         public async Task<Rol> GetById(int id, string jwtToken)
         {
-            var uri = "https://localhost:7081/api/role/getbyd/1";
+            var uri = $"{ApiUrl.BASE_URL}/Rol/GetById/{id}";
 
             return await _httpService.GetAsync<Rol>(uri, jwtToken);
         }

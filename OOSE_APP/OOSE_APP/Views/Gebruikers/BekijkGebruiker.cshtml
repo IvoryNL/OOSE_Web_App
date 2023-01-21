@@ -1,0 +1,30 @@
+﻿@using Logic.Models.Dto;
+@model VolledigeGebruikerModelDto
+
+<div class="gebruiker-page">
+    <h3>Gebruikergegevens</h3>
+    <div class="content">
+        <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.Voornaam)</td>
+            <td>@Html.DisplayFor(m => m.Voornaam)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Achternaam)</td>
+            <td>@Html.DisplayFor(m => m.Achternaam)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Email)</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Code)</td>
+            <td>@Html.DisplayFor(m => m.Code)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Rol)</td>
+            <td>@Html.DisplayFor(m => m.Rol.Naam)</td>
+        </tr>
+    </table>
+    </div>
+</div>

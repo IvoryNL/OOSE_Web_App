@@ -1,0 +1,45 @@
+﻿@model Presentation.ViewModels.GebruikerViewModel
+
+<div class="gebruiker-page">
+    <h3>Wijzig de opleiding van de student</h3>
+    <div class="content">
+        @using (Html.BeginForm("WijzigGebruiker", "Gebruikers"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Gebruiker.Voornaam):</td>
+                    <td>@Html.DisplayFor(m => m.Gebruiker.Voornaam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Gebruiker.Achternaam):</td>
+                    <td>@Html.DisplayFor(m => m.Gebruiker.Achternaam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Opleiding"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeOpleidingId,
+                        Model.Opleidingen.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = m.Naam,
+                            Selected = Model.Gebruiker.OpleidingId != null && Model.Gebruiker.RolId == m.Id
+                        }))
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.GeselecteerdeOpleidingId)
+            @Html.HiddenFor(m => m.Gebruiker.Id)
+            @Html.HiddenFor(m => m.Gebruiker.RolId)
+            @Html.HiddenFor(m => m.Gebruiker.OpleidingId)
+            @Html.HiddenFor(m => m.Gebruiker.OpleidingsprofielId)
+            @Html.HiddenFor(m => m.Gebruiker.Voornaam)
+            @Html.HiddenFor(m => m.Gebruiker.Achternaam)
+            @Html.HiddenFor(m => m.Gebruiker.Email)
+            @Html.HiddenFor(m => m.Gebruiker.Code)
+            @Html.HiddenFor(m => m.Gebruiker.Beoordelingsmodellen)
+            @Html.HiddenFor(m => m.Gebruiker.Klassen)
+            <button class="btn btn-primary">Wijzig</button>
+        }
+        
+    </div>
+</div>

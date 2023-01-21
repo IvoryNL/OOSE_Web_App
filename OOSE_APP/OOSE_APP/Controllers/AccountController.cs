@@ -1,7 +1,5 @@
-﻿using Logic.Models;
+﻿using Logic.Models.Dto;
 using Logic.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using OOSE_APP.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,15 +11,21 @@ namespace Presentation.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly IUserService _userService;
+        private readonly IAuthenticationService _userService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IAuthenticationService userService)
         {
             _userService = userService;
+            ViewData["Test"] = "Test";
         }
 
         public IActionResult Index()
         {
+            if (IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -32,22 +36,22 @@ namespace Presentation.Controllers
             //Response.Headers.Add("Content-Disposition", "inline; filename=test.pdf");
             //return File(filePath, "application/pdf");
 
-            string outputFilePath = "C:\\Users\\ivanf\\Documents\\OOSE Casus\\MaterialGenerator files\\PdfTest.pdf";
+            //string outputFilePath = "C:\\Users\\ivanf\\Documents\\OOSE Casus\\MaterialGenerator files\\PdfTest.pdf";
 
-            if (!System.IO.File.Exists(outputFilePath))
-            {
-                return NotFound();
-            }
+            //if (!System.IO.File.Exists(outputFilePath))
+            //{
+            //    return NotFound();
+            //}
 
-            var fileInfo = new System.IO.FileInfo(outputFilePath);
-            Response.ContentType = "application/pdf";
-            Response.Headers.Add("Content-Disposition", "attachment;filename=\"" + fileInfo.Name + "\"");
-            Response.Headers.Add("Content-Length", fileInfo.Length.ToString());
+            //var fileInfo = new System.IO.FileInfo(outputFilePath);
+            //Response.ContentType = "application/pdf";
+            //Response.Headers.Add("Content-Disposition", "attachment;filename=\"" + fileInfo.Name + "\"");
+            //Response.Headers.Add("Content-Length", fileInfo.Length.ToString());
 
-            // Send the file to the client
-            return File(System.IO.File.ReadAllBytes(outputFilePath), "application/pdf", fileInfo.Name);
+            //// Send the file to the client
+            //return File(System.IO.File.ReadAllBytes(outputFilePath), "application/pdf", fileInfo.Name);
 
-            var loginModel = new LoginModel(email, password);
+            var loginModel = new LoginModelDto(email, password);
 
             try
             {
@@ -63,7 +67,7 @@ namespace Presentation.Controllers
                 return View("Error", errorViewModel);
             }
 
-            return RedirectToAction("Index", "Roles");
+            return RedirectToAction("Index", "Home");
         }
 
         private void SetUserIdentity(string jwtToken)

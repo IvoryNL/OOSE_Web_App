@@ -1,0 +1,10 @@
+﻿@model List<string>
+
+<ul class="navbar-nav flex-grow-1">
+    @foreach (var menuItem in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="@menuItem" asp-action="Index">@menuItem</a>
+        </li>
+    }
+</ul>

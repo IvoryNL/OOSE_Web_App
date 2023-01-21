@@ -15,8 +15,12 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<IHttpService, HttpService>();
-builder.Services.AddScoped<IUserService, AuthenticationService>();
-builder.Services.AddScoped<IRolesService, RolesService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IGebruikerService, GebruikerService>();
+builder.Services.AddScoped<IKlasService, KlasService>();
+builder.Services.AddScoped<IGebruikerService, GebruikerService>();
+builder.Services.AddScoped<IOpleidingService, OpleidingService>();
 
 var app = builder.Build();
 

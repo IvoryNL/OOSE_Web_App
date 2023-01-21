@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Logic.Models.Constants;
+@using System.Security.Claims;
+@{
+    ViewData["rolnaam"] = string.Empty;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,11 +23,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                    </ul>
+                        @if (User.Claims.Any())
+                        {
+                            var rolnaam = User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role).Value;
+                            ViewData["rolnaam"] = rolnaam;
+                        }
+                        @await Component.InvokeAsync("NavBar", new { Rolnaam = ViewData["rolnaam"] });
                 </div>
             </div>
         </nav>

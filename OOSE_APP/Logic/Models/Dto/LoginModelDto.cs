@@ -1,8 +1,8 @@
-﻿namespace Logic.Models
+﻿namespace Logic.Models.Dto
 {
-    public class LoginModel
+    public class LoginModelDto
     {
-        public LoginModel(string email, string password)
+        public LoginModelDto(string email, string password)
         {
             Email = email;
             Password = password;

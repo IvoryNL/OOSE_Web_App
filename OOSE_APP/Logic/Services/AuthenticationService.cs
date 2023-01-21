@@ -1,10 +1,10 @@
-﻿using Logic.Models;
-using Logic.Models.Constants;
+﻿using Logic.Models.Constants;
+using Logic.Models.Dto;
 using Logic.Services.Interfaces;
 
 namespace Logic.Services
 {
-    public class AuthenticationService : IUserService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IHttpService _httpService;
 
@@ -13,11 +13,11 @@ namespace Logic.Services
             _httpService = httpService;
         }
 
-        public async Task<LoggedInUserModel> Login(LoginModel loginModel)
+        public async Task<IngelogdeGebruikerDto> Login(LoginModelDto loginModel)
         {
             var uri = $"{ApiUrl.BASE_URL}/Authentication/Login";
 
-            return await _httpService.PostAsync<LoggedInUserModel>(uri, loginModel);
+            return await _httpService.PostAsync<IngelogdeGebruikerDto>(uri, loginModel);
         }
     }
 }

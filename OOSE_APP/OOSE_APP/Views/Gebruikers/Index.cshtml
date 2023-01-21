@@ -1,0 +1,33 @@
+﻿@using Logic.Models.Constants;
+@using Logic.Models.Dto;
+@{
+    ViewData["Title"] = "Gebruikers";
+}
+@model List<VolledigeGebruikerModelDto>
+
+<div class="gebruiker-page">
+    <h3>Gebruikeroverzicht</h3>
+    <div class="content">
+        <table>
+                @foreach (var gebruiker in Model)
+                {
+                    <tr>
+                        <td>@gebruiker.Voornaam</td>
+                        <td>@gebruiker.Achternaam</td>
+                        <td>@Html.ActionLink("Bekijk", "BekijkGebruiker", "Gebruikers", new {id = gebruiker.Id})</td>
+                        @if (User.IsInRole(Rollen.DOCENT))
+                        {
+                            <td>@Html.ActionLink("Wijzig opleiding", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.OPLEIDING })</td>
+                            if (gebruiker.OpleidingId != null) {
+                                <td>@Html.ActionLink("Wijzig klas", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.KLAS })</td>
+                            }
+                        }
+                        else if (User.IsInRole(Rollen.ADMIN))
+                        {
+                            <td>@Html.ActionLink("Wijzig rol", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.ROL })</td>
+                        }
+                    </tr>
+                }
+        </table>
+    </div>
+</div>
