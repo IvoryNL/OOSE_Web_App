@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Logic.Models.Constants;
 using Logic.Models.Dto;
+using Logic.Constants;
 
 namespace Logic.Services
 {
@@ -48,9 +48,9 @@ namespace Logic.Services
             return gebruikers.Where(g => g.Rol.Naam == Rollen.STUDENT).ToList();
         }
 
-        public async Task AddGebruikerToKlas(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken)
+        public async Task KoppelStudentAanKlas(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken)
         {
-            var uri = $"{ApiUrl.BASE_URL}/Gebruiker/AddGebruikerToKlas/{id}";
+            var uri = $"{ApiUrl.BASE_URL}/Gebruiker/KoppelStudentAanKlas/{id}";
 
             await _httpService.PutAsync(uri, gebruiker, jwtToken);
         }

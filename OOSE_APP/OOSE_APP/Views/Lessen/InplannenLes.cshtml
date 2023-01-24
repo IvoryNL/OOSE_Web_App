@@ -1,0 +1,38 @@
+﻿@using Presentation.ViewModels.Lessen;
+@model LessenViewModel
+@{
+    ViewData["Title"] = "Lessen";
+}
+
+<div class="lessen-page">
+    <h3>Voeg planning toe</h3>
+    <div class="content">
+        @using (Html.BeginForm("InplannenLes", "Lessen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.Label("Onderwijsuitvoering"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeOnderwijsuitvoeringId,
+                        Model.Onderwijsuitvoeringen.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = $"{m.Onderwijsmodule.Naam} Periode {m.Periode} Jaartal {m.Jaartal}"
+                        }))
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Datum)</td>
+                    <td>@Html.EditorFor(m => m.Datum)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Weeknummer)</td>
+                    <td>@Html.EditorFor(m => m.Weeknummer, new {htmlAttributes = new {min = 1, max = 52} } )</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.LesId)
+            @Html.HiddenFor(m => m.GeselecteerdeOnderwijsuitvoeringId)
+            <button class="btn btn-primary">Voeg toe</button>
+        }
+    </div>
+</div>

@@ -1,7 +1,6 @@
 ﻿using Logic.Models.Dto;
 using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using OOSE_APP.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,7 +15,6 @@ namespace Presentation.Controllers
         public AccountController(IAuthenticationService userService)
         {
             _userService = userService;
-            ViewData["Test"] = "Test";
         }
 
         public IActionResult Index()
@@ -26,11 +24,11 @@ namespace Presentation.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return View(new LoginModelDto());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginModelDto loginModel)
         {
             //string filePath = "~/Files/PdfTest.pdf";
             //Response.Headers.Add("Content-Disposition", "inline; filename=test.pdf");
@@ -51,7 +49,13 @@ namespace Presentation.Controllers
             //// Send the file to the client
             //return File(System.IO.File.ReadAllBytes(outputFilePath), "application/pdf", fileInfo.Name);
 
-            var loginModel = new LoginModelDto(email, password);
+            //var loginModel = new LoginModelDto(email, password);
+
+            if (!ModelState.IsValid)
+            {
+                AddModelStateErrors();
+                return View("Index", loginModel);
+            }
 
             try
             {
@@ -63,11 +67,18 @@ namespace Presentation.Controllers
             catch (HttpResponseException ex)
             {
                 var message = await ex.Response.Content.ReadAsStringAsync();
-                var errorViewModel = new ErrorViewModel { StatusCode = ex.Response.StatusCode, ErrorMessage = message };
-                return View("Error", errorViewModel);
+                ModelState.AddModelError("all", message);
+                return View("Index", loginModel);
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("jwtToken");
+            return View("Index");
         }
 
         private void SetUserIdentity(string jwtToken)

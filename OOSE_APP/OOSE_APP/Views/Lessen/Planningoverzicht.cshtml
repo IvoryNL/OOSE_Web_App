@@ -1,0 +1,24 @@
+﻿@using Logic.Models;
+@model Les
+@{
+    ViewData["Title"] = "Lessen";
+}
+
+<div class="lessen-page">
+    <h3>Planningoverzicht</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.ActionLink("Voeg planning toe", "InplannenLes", "Lessen", new { lesId = Model.Id })</td>
+            </tr>
+            @foreach (var planning in Model.Planningen)
+            {
+                    <tr>
+                        <td>Datum: @planning.Datum</td>
+                        <td>Weeknummer: @planning.Weeknummer</td>
+                        <td>@Html.ActionLink("Verwijder", "VerwijderPlanningVanLes", "Lessen", new {lesId = Model.Id,  planningId = planning.Id})</td>
+                    </tr>
+            }
+        </table>
+    </div>
+</div>

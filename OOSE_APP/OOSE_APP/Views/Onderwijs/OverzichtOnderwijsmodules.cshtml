@@ -1,0 +1,22 @@
+﻿@using Logic.Models;
+@using Presentation.ViewModels.Onderwijs;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model OnderwijsmoduleOverzichtViewModel
+<div class="onderwijs-page">
+    <h3>Onderwijsmodulesoverzicht</h3>
+    <div class="content">
+        @Html.ActionLink("Nieuwe onderwijsmodule", "MaakOnderwijsmodule", "Onderwijs", new { opleidingId = Model.OpleidingId })
+        <table>
+            @foreach (var onderwijsmodule in Model.Onderwijsmodules)
+            {
+                <tr>
+                    <td>@onderwijsmodule.Naam</td>
+                    <td>@Html.ActionLink("Bekijk", "OnderwijsmoduleDetails", "Onderwijs", new { onderwijsmoduleId = onderwijsmodule.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigOnderwijsmodule", "Onderwijs", new { onderwijsmoduleId = onderwijsmodule.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

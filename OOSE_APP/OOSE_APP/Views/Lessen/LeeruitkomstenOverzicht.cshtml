@@ -1,0 +1,23 @@
+﻿@using Logic.Models;
+@model Les
+@{
+    ViewData["Title"] = "Lessen";
+}
+
+<div class="lessen-page">
+    <h3>Leeruitkomstenoverzicht</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.ActionLink("Voeg leeruitkomst toe", "KoppelLeeruitkomstAanLes", "Lessen", new { lesId = Model.Id })</td>
+            </tr>
+            @foreach (var leeruitkomst in Model.Leeruitkomsten)
+            {
+                <tr>
+                    <td>@leeruitkomst.Naam</td>
+                    <td>@Html.ActionLink("Verwijder", "OntkoppelLeeruitkomstVanLes", "Lessen", new {lesId = Model.Id,  leeruitkomstId = leeruitkomst.Id})</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

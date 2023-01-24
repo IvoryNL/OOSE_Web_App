@@ -1,15 +1,22 @@
-﻿namespace Logic.Models.Dto
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Logic.Models.Dto
 {
     public class LoginModelDto
     {
-        public LoginModelDto(string email, string password)
+        public LoginModelDto()
         {
-            Email = email;
-            Password = password;
+
         }
 
+        [DisplayName("E-mailadres")]
+        [Required(ErrorMessage = "Het e-mailadres is verplicht")]
+        [EmailAddress(ErrorMessage = "Het e-mailadres is niet geldig")]
         public string Email { get; set; }
 
-        public string Password { get; set; }
+        [DisplayName("Wachtwoord")]
+        [Required(ErrorMessage = "Het wachtwoord is verplicht")]
+        public string Wachtwoord { get; set; }
     }
 }

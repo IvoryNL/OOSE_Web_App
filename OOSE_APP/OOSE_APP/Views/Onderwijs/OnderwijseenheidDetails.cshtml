@@ -1,0 +1,40 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model Onderwijseenheid
+<div class="onderwijs-page">
+    <h3>Onderwijseenheid</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Naam)</td>
+                <td>@Html.DisplayFor(m => m.Naam)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Beschrijving)</td>
+                <td>@Html.DisplayFor(m => m.Beschrijving)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Coordinator)</td>
+                <td>@Html.DisplayFor(m => m.Coordinator)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Studiepunten)</td>
+                <td>@Html.DisplayFor(m => m.Studiepunten)</td>
+            </tr>
+        </table>
+        <h6>Leerdoelen</h6>
+        @Html.ActionLink("Nieuwe leerdoel", "MaakLeerdoel", "Onderwijs", new { onderwijseenheidId = Model.Id })
+        <table>
+            @foreach (var leerdoel in Model.Leerdoelen)
+            {
+                <tr>
+                    <td>@leerdoel.Beschrijving</td>
+                    <td>@Html.ActionLink("Bekijk", "LeerdoelDetails", "Onderwijs", new { leerdoelId = leerdoel.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigLeerdoel", "Onderwijs", new { leerdoelId = leerdoel.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

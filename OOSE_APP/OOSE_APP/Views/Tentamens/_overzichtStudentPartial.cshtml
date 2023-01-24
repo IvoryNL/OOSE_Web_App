@@ -1,0 +1,14 @@
+﻿@using Presentation.ViewModels.Tentamens;
+@using Logic.Enums
+@model TentamenOverzichtViewModel
+<table>
+    @foreach (var tentamen in Model.Tentamens)
+    {
+        var planningId = tentamen.Planningen.FirstOrDefault().Id;
+        <tr>
+            <td>@tentamen.Naam</td>
+            <td>@Html.ActionLink("Inschrijven", "InschrijvenVoorTentamen", "Tentamens", new {tentamenId = tentamen.Id, planningId = planningId})</td>
+            <td>@(Model.Gebruiker.Toetsinschrijvingen.Any(t => t.TentamenId == tentamen.Id && tentamen.Planningen.Any(p => p.Id == t.PlanningId)) ? "Ingeschreven" : "Niet ingeschreven")</td>
+        </tr>
+    }
+</table>

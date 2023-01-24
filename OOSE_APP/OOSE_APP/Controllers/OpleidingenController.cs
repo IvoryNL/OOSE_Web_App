@@ -36,6 +36,8 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> WijzigOpleidingsprofiel()
         {
+            SetIdentity();
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var gebruiker = await GetIngelogdeGebruikerByEmail(jwtToken);
             var viewModel = new OpleidingsprofielViewModel();
@@ -49,6 +51,8 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigOpleidingsprofiel(OpleidingsprofielViewModel opleidingsprofielViewModel)
         {
+            SetIdentity();
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var gebruiker = await GetIngelogdeGebruikerByEmail(jwtToken);
             gebruiker.OpleidingsprofielId = int.Parse(opleidingsprofielViewModel.GeselecteerdeOpleidingsprofielId);

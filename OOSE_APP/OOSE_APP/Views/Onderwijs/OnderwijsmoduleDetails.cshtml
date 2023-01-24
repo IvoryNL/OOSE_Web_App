@@ -1,0 +1,52 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model Onderwijsmodule
+<div class="onderwijs-page">
+    <h3>Onderwijsmodule</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Naam)</td>
+                <td>@Html.DisplayFor(m => m.Naam)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Beschrijving)</td>
+                <td>@Html.DisplayFor(m => m.Beschrijving)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Coordinator)</td>
+                <td>@Html.DisplayFor(m => m.Coordinator)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Studiepunten)</td>
+                <td>@Html.DisplayFor(m => m.Studiepunten)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Fase)</td>
+                <td>@Html.DisplayFor(m => m.Fase)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Ingangseisen)</td>
+                <td>@Html.DisplayFor(m => m.Ingangseisen)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Leerjaar)</td>
+                <td>@Html.DisplayFor(m => m.Leerjaar, new {htmlAttributes = new {min = 1, max = 4} } )</td>
+            </tr>
+        </table>
+        <h6>Onderwijseenheden</h6>
+        @Html.ActionLink("Nieuwe onderwijseenheid", "MaakOnderwijseenheid", "Onderwijs", new { onderwijsmoduleId = Model.Id })
+        <table>
+            @foreach (var onderwijseenheid in Model.Onderwijseenheden)
+            {
+                <tr>
+                    <td>@onderwijseenheid.Naam</td>
+                    <td>@Html.ActionLink("Bekijk", "OnderwijseenheidDetails", "Onderwijs", new { onderwijseenheidId = onderwijseenheid.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigOnderwijseenheid", "Onderwijs", new { onderwijseenheidId = onderwijseenheid.Id, onderwijsmoduleId = Model.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

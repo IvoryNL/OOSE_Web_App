@@ -1,5 +1,4 @@
-﻿using Logic.Models.Dto;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Logic.Models
 {
@@ -7,11 +6,13 @@ namespace Logic.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int OpleidingId { get; set; }
 
         public int StatusId { get; set; }
 
         [MaxLength(50)]
+        [Required]
         public string Naam { get; set; }
 
         [MaxLength(150)]

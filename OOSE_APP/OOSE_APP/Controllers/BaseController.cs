@@ -1,4 +1,4 @@
-﻿using Logic.Models.Constants;
+﻿using Logic.Constants;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,6 +36,17 @@ namespace Presentation.Controllers
         protected bool IsWerknemer()
         {
             return !User.IsInRole(Rollen.DOCENT) || !User.IsInRole(Rollen.ADMIN);
+        }
+
+        protected void AddModelStateErrors(string errorMessage = null)
+        {
+            foreach (var modelstateValue in ModelState.Values)
+            {
+                foreach (var modelStateError in modelstateValue.Errors)
+                {
+                    ModelState.AddModelError("all", modelStateError.ErrorMessage);
+                }
+            }
         }
 
         private ClaimsIdentity GetClaimsIdentity()

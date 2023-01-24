@@ -1,5 +1,5 @@
-﻿using Logic.Models;
-using Logic.Models.Constants;
+﻿using Logic.Constants;
+using Logic.Models;
 using Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;

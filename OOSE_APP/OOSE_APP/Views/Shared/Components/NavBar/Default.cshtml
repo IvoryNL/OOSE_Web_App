@@ -3,6 +3,14 @@
 <ul class="navbar-nav flex-grow-1">
     @foreach (var menuItem in Model)
     {
+        if (menuItem == "Uitloggen") {
+            <li class="float-right">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Uitloggen</a>
+            </li>
+
+            continue;
+        }
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="@menuItem" asp-action="Index">@menuItem</a>
         </li>

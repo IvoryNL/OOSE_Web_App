@@ -1,5 +1,6 @@
-﻿@using Logic.Models;
-@model List<Opleiding>
+﻿@using Logic.Enums;
+@using Logic.Models;
+@model List<Les>
 @{
     ViewData["Title"] = "Lessen";
 }
@@ -8,12 +9,15 @@
     <h3>Lessenoverzicht</h3>
     <div class="content">
         <table>
-            <tr>
-                <td>Selecteer een opleiding</td>
-            </tr>
-            <tr>
-                <td>Selecteer een opleiding</td>
-            </tr>
+            @foreach (var les in Model)
+            {
+                <tr>
+                    <td>@les.Omschrijving</td>
+                    <td>@Html.ActionLink("Leeruitkomsten", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Leeruitkomsten})</td>
+                    <td>@Html.ActionLink("Lesmaterialen", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Lesmaterialen})</td>
+                    <td>@Html.ActionLink("Planningen", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Planningen})</td>
+                </tr>
+            }
         </table>
     </div>
 </div>

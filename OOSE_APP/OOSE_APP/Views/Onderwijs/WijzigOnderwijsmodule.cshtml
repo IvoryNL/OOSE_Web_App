@@ -1,0 +1,50 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model Onderwijsmodule
+<div class="onderwijs-page">
+    <h3>Onderwijsmodule</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("WijzigOnderwijsmodule", "Onderwijs"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Naam)</td>
+                    <td>@Html.EditorFor(m => m.Naam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Beschrijving)</td>
+                    <td>@Html.EditorFor(m => m.Beschrijving)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Coordinator)</td>
+                    <td>@Html.EditorFor(m => m.Coordinator)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Studiepunten)</td>
+                    <td>@Html.EditorFor(m => m.Studiepunten)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Fase)</td>
+                    <td>@Html.EditorFor(m => m.Fase)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Ingangseisen)</td>
+                    <td>@Html.EditorFor(m => m.Ingangseisen)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Leerjaar)</td>
+                    <td>@Html.EditorFor(m => m.Leerjaar, new {htmlAttributes = new {min = 1, max = 4} } )</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.OpleidingId)
+            @Html.HiddenFor(m => m.StatusId)
+            @Html.HiddenFor(m => m.Versie)
+            <button class="btn btn-primary">Wijzig</button>
+        }
+    </div>
+</div>

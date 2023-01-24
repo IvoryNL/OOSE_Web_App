@@ -58,7 +58,7 @@ h3 {
 }
 
 .home-page, .gebruiker-page, .account-page, .opleidingen-page,
-.lesse-page {
+.lessen-page, .tentamens-page, .onderwijs-page {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -82,4 +82,17 @@ td {
 .btn {
     margin: 20px;
     width: 100%;
+}
+
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.float-right {
+    float: right;
 }

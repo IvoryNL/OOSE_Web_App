@@ -1,5 +1,6 @@
-﻿@using Logic.Models.Constants;
+﻿@using Logic.Constants;
 @using Logic.Models.Dto;
+@using Logic.Enums;
 @{
     ViewData["Title"] = "Gebruikers";
 }
@@ -17,14 +18,14 @@
                         <td>@Html.ActionLink("Bekijk", "BekijkGebruiker", "Gebruikers", new {id = gebruiker.Id})</td>
                         @if (User.IsInRole(Rollen.DOCENT))
                         {
-                            <td>@Html.ActionLink("Wijzig opleiding", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.OPLEIDING })</td>
+                        <td>@Html.ActionLink("Wijzig opleiding", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = ControllerActionTypes.Opleiding })</td>
                             if (gebruiker.OpleidingId != null) {
-                                <td>@Html.ActionLink("Wijzig klas", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.KLAS })</td>
+                            <td>@Html.ActionLink("Wijzig klas", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = ControllerActionTypes.Klas })</td>
                             }
                         }
                         else if (User.IsInRole(Rollen.ADMIN))
                         {
-                            <td>@Html.ActionLink("Wijzig rol", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = WijzigGebruikerActionType.ROL })</td>
+                        <td>@Html.ActionLink("Wijzig rol", "WijzigGebruiker", "Gebruikers", new {id = gebruiker.Id, actionType = ControllerActionTypes.Rol })</td>
                         }
                     </tr>
                 }

@@ -1,17 +1,21 @@
-﻿@{
+﻿@using Logic.Models.Dto;
+@{
     ViewData["Title"] = "Account";
 }
+@model LoginModelDto
 
 <div class="account-page">
     <h3>Inloggen</h3>
     <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
         @using (Html.BeginForm("Login", "Account"))
         {
-            <p>Email</p>
-            @Html.TextBox("email")
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)
 
-            <p>Password</p>
-            @Html.Password("password")
+            @Html.LabelFor(m => m.Wachtwoord)
+            @Html.PasswordFor(m => m.Wachtwoord)
 
             <button class="btn btn-primary">Login</button>
         }

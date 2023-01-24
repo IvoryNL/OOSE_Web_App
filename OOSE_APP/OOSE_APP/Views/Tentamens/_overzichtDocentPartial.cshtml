@@ -1,0 +1,13 @@
+﻿@using Presentation.ViewModels.Tentamens;
+@using Logic.Enums;
+@model TentamenOverzichtViewModel
+<table>
+    @foreach (var tentamen in Model.Tentamens)
+    {
+        <tr>
+            <td>@tentamen.Naam</td>
+            <td>@Html.ActionLink("Leeruitkomsten", "Overzicht", "Tentamens", new {id = tentamen.Id, actionType = ControllerActionTypes.Leeruitkomsten})</td>
+            <td>@Html.ActionLink("Planningen", "Overzicht", "Tentamens", new {id = tentamen.Id, actionType = ControllerActionTypes.Planningen})</td>
+        </tr>
+    }
+</table>

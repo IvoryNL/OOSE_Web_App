@@ -1,7 +1,20 @@
-﻿@{
+﻿@using Presentation.ViewModels.Tentamens;
+@using Logic.Constants;
+@model TentamenOverzichtViewModel
+@{
     ViewData["Title"] = "Tentamens";
 }
 
 <div class="tentamens-page">
-    
+    <h3>Tentamenoverzicht</h3>
+    <div class="content">
+        @if (User.IsInRole(Rollen.DOCENT))
+        {
+            <partial name="_overzichtDocentPartial" />
+        }
+        else if (User.IsInRole(Rollen.STUDENT))
+        {
+            <partial name="_overzichtStudentPartial"/>
+        }
+    </div>
 </div>

@@ -1,4 +1,4 @@
-﻿namespace Logic.Models.Constants
+﻿namespace Logic.Constants
 {
     public class ApiUrl
     {

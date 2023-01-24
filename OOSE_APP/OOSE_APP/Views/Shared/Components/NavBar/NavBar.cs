@@ -1,4 +1,4 @@
-﻿using Logic.Models.Constants;
+﻿using Logic.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Views.Shared.Components.NavBar
@@ -37,7 +37,10 @@ namespace Presentation.Views.Shared.Components.NavBar
                 menuItems.Add("Lessen");
             }
 
-            
+            if (!string.IsNullOrWhiteSpace(rolnaam))
+            {
+                menuItems.Add("Uitloggen");
+            }
 
             return menuItems.ToList();
         }

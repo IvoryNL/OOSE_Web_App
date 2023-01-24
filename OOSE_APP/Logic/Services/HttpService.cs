@@ -69,6 +69,11 @@ namespace Logic.Services
 
             var response = await _httpClient.SendAsync(request);
             var test  = response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpResponseException(response);
+            }
         }
 
         private async Task<T> SendRequest<T>(HttpRequestMessage request, string jwtToken)

@@ -1,4 +1,4 @@
-﻿using Logic.Models.Constants;
+﻿using Logic.Constants;
 using Logic.Models.Dto;
 using Logic.Services.Interfaces;
 

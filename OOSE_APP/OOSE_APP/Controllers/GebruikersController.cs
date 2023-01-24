@@ -1,13 +1,12 @@
-﻿using Logic.Models.Constants;
-using Logic.Models;
-using Logic.Services.Interfaces;
+﻿using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Helpers;
 using OOSE_APP.Models;
 using HttpResponseException = System.Web.Http.HttpResponseException;
 using Logic.Models.Dto;
-using Logic.Services;
 using Presentation.ViewModels.Gebruikers;
+using Logic.Constants;
+using Logic.Enums;
 
 namespace Presentation.Controllers
 {
@@ -95,7 +94,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> WijzigGebruiker(int id, string actionType)
+        public async Task<IActionResult> WijzigGebruiker(int id, ControllerActionTypes actionType)
         {
             if (!IsUserLoggedIn())
             {
@@ -134,6 +133,8 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigGebruiker(GebruikerViewModel gebruikerViewModel)
         {
+            SetIdentity();
+
             var gebruiker = MapGebruikerViewModelGebruikerToDtoMode(gebruikerViewModel);
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
 
@@ -150,8 +151,10 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> VoegGebruikerToeAanKlas(GebruikerViewModel gebruikerViewModel)
+        public async Task<IActionResult> KoppelStudentAanKlas(GebruikerViewModel gebruikerViewModel)
         {
+            SetIdentity();
+
             var gebruiker = MapGebruikerViewModelGebruikerToDtoMode(gebruikerViewModel);
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             if (!string.IsNullOrEmpty(gebruikerViewModel.GeselecteerdeKlasId))
@@ -162,7 +165,7 @@ namespace Presentation.Controllers
 
             try
             {
-                await _gebruikerService.AddGebruikerToKlas(gebruiker.Id, gebruiker, jwtToken);
+                await _gebruikerService.KoppelStudentAanKlas(gebruiker.Id, gebruiker, jwtToken);
             }
             catch (HttpResponseException ex)
             {
@@ -197,21 +200,21 @@ namespace Presentation.Controllers
             };
         }
 
-        private string GetViewByActionType(string actionType)
+        private string GetViewByActionType(ControllerActionTypes actionType)
         {
             var viewName = string.Empty;
 
-            if (actionType == WijzigGebruikerActionType.ROL)
+            if (actionType == ControllerActionTypes.Rol)
             {
-                viewName = "WijzigGebruikerRol";
+                viewName = "WijzigRolGebruiker";
             }
-            else if (actionType == WijzigGebruikerActionType.OPLEIDING)
+            else if (actionType == ControllerActionTypes.Opleiding)
             {
-                viewName = "WijzigGebruikerOpleiding";
+                viewName = "WijzigOpleidingStudent";
             }
-            else if (actionType == WijzigGebruikerActionType.KLAS)
+            else if (actionType == ControllerActionTypes.Klas)
             {
-                viewName = "WijzigGebruikerKlas";
+                viewName = "WijzigKlasStudent";
             }
 
             return viewName;

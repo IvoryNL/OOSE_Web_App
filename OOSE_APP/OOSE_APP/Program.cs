@@ -22,6 +22,15 @@ builder.Services.AddScoped<IKlasService, KlasService>();
 builder.Services.AddScoped<IGebruikerService, GebruikerService>();
 builder.Services.AddScoped<IOpleidingService, OpleidingService>();
 builder.Services.AddScoped<IOpleidingsprofielService, OpleidingsprofielService>();
+builder.Services.AddScoped<ILeeruitkomstService, LeeruitkomstService>();
+builder.Services.AddScoped<ILesmateriaalService, LesmateriaalService>();
+builder.Services.AddScoped<ILesService, LesService>();
+builder.Services.AddScoped<ITentamenService, TentamenService>();
+builder.Services.AddScoped<IOnderwijsuitvoeringService, OnderwijsuitvoeringService>();
+builder.Services.AddScoped<IToetsinschrijvingService, ToetsinschrijvingService>();
+builder.Services.AddScoped<IOnderwijsmoduleService, OnderwijsmoduleService>();
+builder.Services.AddScoped<IOnderwijseenheidService, OnderwijseenheidService>();
+builder.Services.AddScoped<ILeerdoelService, LeerdoelService>();
 
 var app = builder.Build();
 

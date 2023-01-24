@@ -1,0 +1,33 @@
+﻿@using Presentation.ViewModels.Onderwijs;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model OnderwijseenheidViewModel
+<div class="onderwijs-page">
+    <h3>Onderwijseenheid</h3>
+    <div class="content">
+        @using (Html.BeginForm("MaakOnderwijseenheid", "Onderwijs"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Onderwijseenheid.Naam)</td>
+                    <td>@Html.EditorFor(m => m.Onderwijseenheid.Naam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Onderwijseenheid.Beschrijving)</td>
+                    <td>@Html.EditorFor(m => m.Onderwijseenheid.Beschrijving)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Onderwijseenheid.Coordinator)</td>
+                    <td>@Html.EditorFor(m => m.Onderwijseenheid.Coordinator)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Onderwijseenheid.Studiepunten)</td>
+                    <td>@Html.EditorFor(m => m.Onderwijseenheid.Studiepunten)</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.OnderwijsmoduleId)
+            <button class="btn btn-primary">Maak</button>
+        }
+    </div>
+</div>

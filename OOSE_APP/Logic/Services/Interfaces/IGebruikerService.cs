@@ -14,6 +14,6 @@ namespace Logic.Services.Interfaces
 
         Task UpdateGebruiker(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken);
 
-        Task AddGebruikerToKlas(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken); 
+        Task KoppelStudentAanKlas(int id, VolledigeGebruikerModelDto gebruiker, string jwtToken); 
     }
 }
