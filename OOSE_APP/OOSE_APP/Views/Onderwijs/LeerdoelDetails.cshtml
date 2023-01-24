@@ -8,19 +8,23 @@
     <div class="content">
         <table>
             <tr>
+                <td>@Html.LabelFor(m => m.Naam)</td>
+                <td>@Html.DisplayFor(m => m.Naam)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(m => m.Beschrijving)</td>
-                <td>@Html.DisplayFor(m => m.Beschrijving)</td>
+                <td>@Html.DisplayTextFor(m => m.Beschrijving)</td>
             </tr>
         </table>
         <h6>Leeruitkomsten</h6>
-        @Html.ActionLink("Nieuwe leerdoel", "MaakLeerdoel", "Onderwijs", new { leerdoelId = Model.Id })
+        @Html.ActionLink("Nieuwe leeruitkomst", "MaakLeeruitkomst", "Onderwijs", new { leerdoelId = Model.Id })
         <table>
             @foreach (var leeruitkomst in Model.Leeruitkomsten)
             {
                 <tr>
                     <td>@leeruitkomst.Naam</td>
-                    <td>@Html.ActionLink("Bekijk", "LeeruitkomstDetails", "Onderwijs", new { leeruitkomst = leeruitkomst.Id })</td>
-                    <td>@Html.ActionLink("Wijzig", "WijzigLeeruitkomst", "Onderwijs", new { leeruitkomst = leeruitkomst.Id })</td>
+                    <td>@Html.ActionLink("Bekijk", "LeeruitkomstDetails", "Onderwijs", new { leeruitkomstId = leeruitkomst.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigLeeruitkomst", "Onderwijs", new { leeruitkomstId = leeruitkomst.Id })</td>
                 </tr>
             }
         </table>

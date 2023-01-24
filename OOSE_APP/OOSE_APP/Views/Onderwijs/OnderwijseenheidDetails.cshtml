@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(m => m.Beschrijving)</td>
-                <td>@Html.DisplayFor(m => m.Beschrijving)</td>
+                <td>@Html.DisplayTextFor(m => m.Beschrijving)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(m => m.Coordinator)</td>
@@ -30,7 +30,7 @@
             @foreach (var leerdoel in Model.Leerdoelen)
             {
                 <tr>
-                    <td>@leerdoel.Beschrijving</td>
+                    <td>@leerdoel.Naam</td>
                     <td>@Html.ActionLink("Bekijk", "LeerdoelDetails", "Onderwijs", new { leerdoelId = leerdoel.Id })</td>
                     <td>@Html.ActionLink("Wijzig", "WijzigLeerdoel", "Onderwijs", new { leerdoelId = leerdoel.Id })</td>
                 </tr>

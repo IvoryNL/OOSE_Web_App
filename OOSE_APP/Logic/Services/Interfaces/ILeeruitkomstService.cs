@@ -9,5 +9,9 @@ namespace Logic.Services.Interfaces
         Task<List<Leeruitkomst>> GetAllLeeruitkomsten(string jwtToken);
 
         Task<Leeruitkomst> GetLeeruitkomstById(int id, string jwtToken);
+
+        Task Createleeruitkomst(Leeruitkomst leeruitkomst, string jwtToken);
+
+        Task UpdateLeeruitkomst(int id, Leeruitkomst leeruitkomst, string jwtToken);
     }
 }

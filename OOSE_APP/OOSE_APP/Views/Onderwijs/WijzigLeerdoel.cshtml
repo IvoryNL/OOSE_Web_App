@@ -6,12 +6,18 @@
 <div class="onderwijs-page">
     <h3>Leerdoel</h3>
     <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
         @using (Html.BeginForm("WijzigLeerdoel", "Onderwijs"))
         {
             <table>
                 <tr>
+                    <td>@Html.LabelFor(m => m.Naam)</td>
+                    <td>@Html.EditorFor(m => m.Naam)</td>
+                </tr>
+                <tr>
                     <td>@Html.LabelFor(m => m.Beschrijving)</td>
-                    <td>@Html.EditorFor(m => m.Beschrijving)</td>
+                    <td>@Html.TextAreaFor(m => m.Beschrijving)</td>
                 </tr>
             </table>
             @Html.HiddenFor(m => m.Id)

@@ -33,5 +33,19 @@ namespace Logic.Services
 
             return await _httpService.GetAsync<Leeruitkomst>(uri, jwtToken);
         }
+
+        public async Task Createleeruitkomst(Leeruitkomst leeruitkomst, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Leeruitkomst/Create";
+
+            await _httpService.PostAsync(uri, leeruitkomst, jwtToken);
+        }
+
+        public async Task UpdateLeeruitkomst(int id, Leeruitkomst leeruitkomst, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Leeruitkomst/Update/{id}";
+
+            await _httpService.PutAsync(uri, leeruitkomst, jwtToken);
+        }
     }
 }

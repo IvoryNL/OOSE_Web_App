@@ -12,18 +12,21 @@ namespace Presentation.Controllers
         private readonly IOnderwijsmoduleService _onderwijsmoduleService;
         private readonly IOnderwijseenheidService _onderwijseenheidService;
         private readonly ILeerdoelService _leerdoelService;
+        private readonly ILeeruitkomstService _leeruitkomstService;
         private readonly IOpleidingService _opleidingService;
 
         public OnderwijsController(
             IOnderwijsmoduleService onderwijsmoduleService,
             IOnderwijseenheidService onderwijseenheidService,
             ILeerdoelService leerdoelService,
+            ILeeruitkomstService leeruitkomstService,
             IOpleidingService opleidingService)
         {
-            _opleidingService = opleidingService;
             _onderwijsmoduleService = onderwijsmoduleService;
             _onderwijseenheidService = onderwijseenheidService;
             _leerdoelService = leerdoelService;
+            _leeruitkomstService = leeruitkomstService;
+            _opleidingService = opleidingService;
         }
 
         public async Task<IActionResult> Index()
@@ -360,6 +363,106 @@ namespace Presentation.Controllers
             }
 
             return RedirectToAction("OnderwijseenheidDetails", new { onderwijseenheidId = leerdoel.OnderwijseenheidId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LeeruitkomstDetails(int leeruitkomstId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var leerdoel = await _leeruitkomstService.GetLeeruitkomstById(leeruitkomstId, jwtToken);
+
+            return View(leerdoel);
+        }
+
+        [HttpGet]
+        public IActionResult MaakLeeruitkomst(int leerdoelId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            var leeruitkomst = new Leeruitkomst();
+            leeruitkomst.LeerdoelId = leerdoelId;
+
+            return View(leeruitkomst);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MaakLeeruitkomst(Leeruitkomst leeruitkomst)
+        {
+            SetIdentity();
+
+            if (!ModelState.IsValid)
+            {
+                AddModelStateErrors();
+                return View(leeruitkomst);
+            }
+
+            try
+            {
+                var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+                await _leeruitkomstService.Createleeruitkomst(leeruitkomst, jwtToken);
+            }
+            catch (HttpResponseException ex)
+            {
+                var message = await ex.Response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("all", message);
+                return View(leeruitkomst);
+            }
+
+            return RedirectToAction("LeerdoelDetails", new { leerdoelId = leeruitkomst.LeerdoelId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WijzigLeeruitkomst(int leeruitkomstId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var leeruitkomst = await _leeruitkomstService.GetLeeruitkomstById(leeruitkomstId, jwtToken);
+
+            return View(leeruitkomst);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WijzigLeeruitkomst(Leeruitkomst leeruitkomst)
+        {
+            SetIdentity();
+
+            if (!ModelState.IsValid)
+            {
+                AddModelStateErrors();
+                return View(leeruitkomst);
+            }
+
+            try
+            {
+                var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+                await _leeruitkomstService.UpdateLeeruitkomst(leeruitkomst.Id, leeruitkomst, jwtToken);
+            }
+            catch (HttpResponseException ex)
+            {
+                var message = await ex.Response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("all", message);
+                return View(leeruitkomst);
+            }
+
+            return RedirectToAction("LeerdoelDetails", new { leerdoelId = leeruitkomst.LeerdoelId });
         }
     }
 }

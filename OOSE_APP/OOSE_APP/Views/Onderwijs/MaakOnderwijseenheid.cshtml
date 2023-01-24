@@ -6,6 +6,8 @@
 <div class="onderwijs-page">
     <h3>Onderwijseenheid</h3>
     <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
         @using (Html.BeginForm("MaakOnderwijseenheid", "Onderwijs"))
         {
             <table>
@@ -15,7 +17,7 @@
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.Onderwijseenheid.Beschrijving)</td>
-                    <td>@Html.EditorFor(m => m.Onderwijseenheid.Beschrijving)</td>
+                    <td>@Html.TextAreaFor(m => m.Onderwijseenheid.Beschrijving)</td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.Onderwijseenheid.Coordinator)</td>

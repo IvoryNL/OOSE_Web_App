@@ -8,6 +8,9 @@ namespace Logic.Models
 
         public int OnderwijseenheidId { get; set; }
 
+        [MaxLength(80)]
+        public string Naam { get; set; }
+
         [MaxLength(150)]
         public string Beschrijving { get; set; }
 

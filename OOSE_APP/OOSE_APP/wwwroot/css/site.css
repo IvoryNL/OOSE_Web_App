@@ -75,12 +75,13 @@ td {
     justify-content: center;
     align-items: center;
     min-width: 500px;
+    min-width: 900px;
     padding: 20px;
     border: solid black 1px;
 }
 
 .btn {
-    margin: 20px;
+    margin: 20px 0px 20px 0px;
     width: 100%;
 }
 
