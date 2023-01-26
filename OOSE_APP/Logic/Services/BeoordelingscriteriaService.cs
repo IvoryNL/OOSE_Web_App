@@ -4,7 +4,7 @@ using Logic.Services.Interfaces;
 
 namespace Logic.Services
 {
-    public class BeoordelingscriteriaService : IBeoordelingsCriteriaService
+    public class BeoordelingscriteriaService : IBeoordelingscriteriaService
     {
         private readonly IHttpService _httpService;
 

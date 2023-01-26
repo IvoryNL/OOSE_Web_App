@@ -35,8 +35,9 @@ builder.Services.AddScoped<ILeerdoelService, LeerdoelService>();
 builder.Services.AddScoped<IConsistentieCheckService, ConsistentieCheckService>();
 builder.Services.AddScoped<IBeoordelingsmodelService, BeoordelingsmodelService>();
 builder.Services.AddScoped<IBeoordelingsonderdeelService, BeoordelingsonderdeelService>();
-builder.Services.AddScoped<IBeoordelingsCriteriaService, BeoordelingscriteriaService>();
+builder.Services.AddScoped<IBeoordelingscriteriaService, BeoordelingscriteriaService>();
 builder.Services.AddScoped<IBeoordelingsdimensieService, BeoordelingsdimensieService>();
+builder.Services.AddScoped<IBeoordelingService, BeoordelingService>();
 
 var app = builder.Build();
 

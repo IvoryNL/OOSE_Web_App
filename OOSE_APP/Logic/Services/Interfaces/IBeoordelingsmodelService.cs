@@ -8,6 +8,8 @@ namespace Logic.Services.Interfaces
 
         Task<Beoordelingsmodel> GetBeoordelingsmodelById(int id, string jwtToken);
 
+        Task<Beoordelingsmodel> GetBeoordelingsmodelByTentamenId(int id, string jwtToken);
+
         Task CreateBeoordelingsmodel(Beoordelingsmodel beoordelingsmodel, string jwtToken);
 
         Task UpdateBeoordelingsmodel(int id, Beoordelingsmodel beoordelingsmodel, string jwtToken);

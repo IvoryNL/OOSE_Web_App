@@ -1,0 +1,21 @@
+﻿@using Logic.Models;
+@using Logic.Models.Dto;
+@{
+    ViewData["Title"] = "Beoordelingen";
+}
+@model List<TentamenVanStudent>
+<div class="beoordelingen-page">
+    <h3>Studentenoverzicht</h3>
+    <div class="content">
+        <table>
+            @foreach (var tentamenVanStudent in Model)
+            {
+                <tr>
+                    <td>@tentamenVanStudent.Bestand</td>
+                    <td>@tentamenVanStudent.Datum</td>
+                    <td>@Html.ActionLink("Voeg beoordeling toe", "BeoordeelTentamen", "Beoordelingen", new { tentamenVanStudentId = tentamenVanStudent.Id, tentamenId = tentamenVanStudent.TentamenId })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

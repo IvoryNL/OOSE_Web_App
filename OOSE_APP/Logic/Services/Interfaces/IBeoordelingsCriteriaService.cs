@@ -2,7 +2,7 @@
 
 namespace Logic.Services.Interfaces
 {
-    public interface IBeoordelingsCriteriaService
+    public interface IBeoordelingscriteriaService
     {
         Task<List<Beoordelingscriteria>> GetAllBeoordelingscriterium(string jwtToken);
 

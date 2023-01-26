@@ -34,6 +34,13 @@ namespace Logic.Services
             return await _httpService.GetAsync<Beoordelingsmodel>(uri, jwtToken);
         }
 
+        public async Task<Beoordelingsmodel> GetBeoordelingsmodelByTentamenId(int id, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Beoordelingsmodel/GetBeoordelingsmodelByTentamenId/{id}";
+
+            return await _httpService.GetAsync<Beoordelingsmodel>(uri, jwtToken);
+        }
+
         public async Task UpdateBeoordelingsmodel(int id, Beoordelingsmodel beoordelingsmodel, string jwtToken)
         {
             var uri = $"{ApiUrl.BASE_URL}/Beoordelingsmodel/Update/{id}";

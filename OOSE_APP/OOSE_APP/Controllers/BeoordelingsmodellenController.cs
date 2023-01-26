@@ -12,7 +12,7 @@ namespace Presentation.Controllers
         private readonly ITentamenService _tentamenService;
         private readonly IBeoordelingsmodelService _beoordelingsmodelService;
         private readonly IBeoordelingsonderdeelService _beoordelingsonderdeelService;
-        private readonly IBeoordelingsCriteriaService _beoordelingscriteriaService;
+        private readonly IBeoordelingscriteriaService _beoordelingscriteriaService;
         private readonly IBeoordelingsdimensieService _beoordelingsdimensieService;
         private readonly IGebruikerService _gebruikerService;
 
@@ -20,7 +20,7 @@ namespace Presentation.Controllers
             ITentamenService tentamenService, 
             IBeoordelingsmodelService beoordelingsmodelService,
             IBeoordelingsonderdeelService beoordelingsonderdeelService,
-            IBeoordelingsCriteriaService beoordelingsCriteriaService,
+            IBeoordelingscriteriaService beoordelingsCriteriaService,
             IBeoordelingsdimensieService beoordelingsdimensieService,
             IGebruikerService gebruikerService)
         {

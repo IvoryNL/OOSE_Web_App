@@ -1,0 +1,26 @@
+﻿@using Logic.Models;
+@using Logic.Models.Dto;
+@{
+    ViewData["Title"] = "Beoordelingen";
+}
+@model Beoordeling
+<div class="beoordelingen-page">
+    <h3>Beoordeling</h3>
+    <div class="content">
+        @using (Html.BeginForm("BeoordeelTentamen", "Beoordelingen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Resultaat):</td>
+                    <td>@Html.EditorFor(m => m.Resultaat)</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.DocentId)
+            @Html.HiddenFor(m => m.BeoordelingsmodelId)
+            @Html.HiddenFor(m => m.TentamenUploadId)
+            @Html.HiddenFor(m => m.StatusId)
+            @Html.HiddenFor(m => m.Datum)
+            <button class="btn btn-primary">Maak</button>
+        }
+    </div>
+</div>
