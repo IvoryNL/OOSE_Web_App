@@ -1,6 +1,12 @@
-﻿using Logic.Models;
+﻿using Logic.Constants;
+using Logic.DocumentExporter.Onderwijseenheden;
+using Logic.DocumentExporter.Onderwijsmodules;
+using Logic.DocumentImporter.Onderwijseenheden;
+using Logic.DocumentImporter.Onderwijsmodules;
+using Logic.Models;
 using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Presentation.Helpers;
 using Presentation.ViewModels.Onderwijs;
 using HttpResponseException = System.Web.Http.HttpResponseException;
@@ -14,19 +20,22 @@ namespace Presentation.Controllers
         private readonly ILeerdoelService _leerdoelService;
         private readonly ILeeruitkomstService _leeruitkomstService;
         private readonly IOpleidingService _opleidingService;
+        private readonly IConsistentieCheckService _consistentieCheckService;
 
         public OnderwijsController(
             IOnderwijsmoduleService onderwijsmoduleService,
             IOnderwijseenheidService onderwijseenheidService,
             ILeerdoelService leerdoelService,
             ILeeruitkomstService leeruitkomstService,
-            IOpleidingService opleidingService)
+            IOpleidingService opleidingService,
+            IConsistentieCheckService consistentieCheckService)
         {
             _onderwijsmoduleService = onderwijsmoduleService;
             _onderwijseenheidService = onderwijseenheidService;
             _leerdoelService = leerdoelService;
             _leeruitkomstService = leeruitkomstService;
             _opleidingService = opleidingService;
+            _consistentieCheckService = consistentieCheckService;
         }
 
         public async Task<IActionResult> Index()
@@ -73,6 +82,12 @@ namespace Presentation.Controllers
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var isConsistent = await _consistentieCheckService.ConsistentieCheckCoverage(onderwijsmoduleId, jwtToken);
+            if (!isConsistent)
+            {
+                ViewData["Consistentie"] = "Deze onderwijsmodule bevat leeruitkomsten zonder tentamen of les.";
+            }
+
             var onderwijsModule = await _onderwijsmoduleService.GetOnderwijsmoduleById(onderwijsmoduleId, jwtToken);
 
             return View(onderwijsModule);
@@ -164,6 +179,36 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> BestaandeOnderwijseenheidToevoegen(int onderwijsmoduleId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var viewModel = new OnderwijsmoduleBestaandeOnderwijseenhedenViewModel();
+            viewModel.Onderwijsmodule = await _onderwijsmoduleService.GetOnderwijsmoduleById(onderwijsmoduleId, jwtToken);
+            viewModel.BestaandeOnderwijseenheden = await _onderwijseenheidService.GetAllOnderwijseenheden(jwtToken);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BestaandeOnderwijseenheidToevoegen(OnderwijsmoduleBestaandeOnderwijseenhedenViewModel viewModel)
+        {
+            SetIdentity();  
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidById(int.Parse(viewModel.GeselecteerdeOnderwijseenheidId), jwtToken);
+            await _onderwijsmoduleService.VoegOnderwijseenheidToe(viewModel.Onderwijsmodule.Id, onderwijseenheid, jwtToken);
+
+            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijsmoduleId = viewModel.Onderwijsmodule.Id });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> OnderwijseenheidDetails(int onderwijseenheidId)
         {
             if (!IsUserLoggedIn())
@@ -218,7 +263,7 @@ namespace Presentation.Controllers
                 return View(onderwijseenheidViewModel);
             }
 
-            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijseenheidViewModel.OnderwijsmoduleId });
+            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijsmoduleId = onderwijseenheidViewModel.OnderwijsmoduleId });
         }
 
         [HttpGet]
@@ -262,7 +307,7 @@ namespace Presentation.Controllers
                 return View(onderwijseenheidViewModel);
             }
 
-            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijseenheidViewModel.OnderwijsmoduleId });
+            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijsmoduleId = onderwijseenheidViewModel.OnderwijsmoduleId });
         }
 
         [HttpGet]
@@ -463,6 +508,106 @@ namespace Presentation.Controllers
             }
 
             return RedirectToAction("LeerdoelDetails", new { leerdoelId = leeruitkomst.LeerdoelId });
+        }
+
+        [HttpGet]
+        public IActionResult ImporteerOnderwijsmodule(int opleidingId)
+        {
+            var viewModel = new ImporteerOnderwijsmoduleViewModel();
+            viewModel.OpleidingId = opleidingId;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ImporteerOnderwijsmodule(ImporteerOnderwijsmoduleViewModel viewModel)
+        {
+            var onderwijsmodule = new Logic.Models.DocumentExportEnImport.Onderwijsmodule();
+            onderwijsmodule.ImporteerDocument = new ImportOnderwijsmoduleFromJsonStringStrategy();
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+
+            try
+            {
+                onderwijsmodule = onderwijsmodule.ImporteerDocument.ImportDocument(await ReadFileContent(viewModel.File));
+                await _onderwijsmoduleService.ImporteerOnderwijsmodule(onderwijsmodule, jwtToken);
+            }
+            catch (JsonSerializationException jsonException)
+            {
+                var message = "Het bestand bevat geen valide data.";
+                AddModelStateErrors(jsonException.Message);
+                return View(viewModel);
+            }
+            catch (HttpResponseException ex)
+            {
+                var message = await ex.Response.Content.ReadAsStringAsync();
+                AddModelStateErrors(message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction("OverzichtOnderwijsmodules", new { opleidingId = viewModel.OpleidingId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExporteerOnderwijsmodule(int onderwijsmoduleId, string bestandsformaat)
+        {
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var onderwijsmodule = await _onderwijsmoduleService.GetOnderwijsmoduleVoorExportById(onderwijsmoduleId, jwtToken);
+            onderwijsmodule.ExporteerDocument = new ExportOnderwijsmoduleToJsonStrategy();
+
+            var onderwijsmoduleConentBytes = onderwijsmodule.ExporteerDocument.ExportToDocument(onderwijsmodule);
+            var outputBestand = $"{onderwijsmodule.Naam}{bestandsformaat}";
+
+            return CreateDownloadFile(onderwijsmoduleConentBytes, ContentTypes.JSON, outputBestand);
+        }
+
+        [HttpGet]
+        public IActionResult ImporteerOnderwijseenheid(int onderwijsmoduleId)
+        {
+            var viewModel = new ImporteerOnderwijseenheidViewModel();
+            viewModel.OnderwijsmoduleId = onderwijsmoduleId;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ImporteerOnderwijseenheid(ImporteerOnderwijseenheidViewModel viewModel)
+        {
+            var onderwijseenheid = new Logic.Models.DocumentExportEnImport.Onderwijseenheid();
+            onderwijseenheid.ImporteerDocument = new ImportOnderwijseenheidFromJsonStringStrategy();
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+
+            try
+            {
+                onderwijseenheid = onderwijseenheid.ImporteerDocument.ImportDocument(await ReadFileContent(viewModel.File));
+                await _onderwijsmoduleService.ImporteerOnderwijseenheid(viewModel.OnderwijsmoduleId, onderwijseenheid, jwtToken);
+            }            
+            catch (JsonSerializationException jsonException)
+            {
+                var message = "Het bestand bevat geen valide data.";
+                AddModelStateErrors(jsonException.Message);
+                return View(viewModel);
+            }
+            catch (HttpResponseException ex)
+            {
+                var message = await ex.Response.Content.ReadAsStringAsync();
+                AddModelStateErrors(message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction("OnderwijsmoduleDetails", new { onderwijsmoduleId = viewModel.OnderwijsmoduleId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExporteerOnderwijseenheid(int onderwijseenheidId, string bestandsformaat)
+        {
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidVoorExportById(onderwijseenheidId, jwtToken);
+            onderwijseenheid.ExporteerDocument = new ExportOnderwijseenheidToJsonStrategy();
+
+            var onderwijsmoduleConentBytes = onderwijseenheid.ExporteerDocument.ExportToDocument(onderwijseenheid);
+            var outputBestand = $"{onderwijseenheid.Naam}{bestandsformaat}";
+
+            return CreateDownloadFile(onderwijsmoduleConentBytes, ContentTypes.JSON, outputBestand);
         }
     }
 }

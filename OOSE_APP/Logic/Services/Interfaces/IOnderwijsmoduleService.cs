@@ -8,7 +8,7 @@ namespace Logic.Services.Interfaces
 
         Task<Onderwijsmodule> GetOnderwijsmoduleById(int id, string jwtToken);
 
-        Task<Onderwijsmodule> GetOnderwijsmoduleVoorExportById(int id, string jwtToken);
+        Task<Models.DocumentExportEnImport.Onderwijsmodule> GetOnderwijsmoduleVoorExportById(int id, string jwtToken);
 
         Task CreateOnderwijsmodule(Onderwijsmodule onderwijsmodule, string jwtToken);
 
@@ -17,5 +17,9 @@ namespace Logic.Services.Interfaces
         Task DeleteOnderwijsmodule(int id, string jwtToken);
 
         Task VoegOnderwijseenheidToe(int id, Onderwijseenheid onderwijseenheid, string jwtToken);
+
+        Task ImporteerOnderwijsmodule(Models.DocumentExportEnImport.Onderwijsmodule onderwijsmodule, string jwtToken);
+
+        Task ImporteerOnderwijseenheid(int id, Models.DocumentExportEnImport.Onderwijseenheid onderwijseenheid, string jwtToken);
     }
 }

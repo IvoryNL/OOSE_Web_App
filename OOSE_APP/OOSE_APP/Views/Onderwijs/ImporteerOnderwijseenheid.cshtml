@@ -1,0 +1,23 @@
+﻿@using Presentation.ViewModels.Onderwijs;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model ImporteerOnderwijseenheidViewModel
+<div class="onderwijs-page">
+    <h3>Importeer onderwijseenheid</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("ImporteerOnderwijseenheid", "Onderwijs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <table>
+                <tr>
+                    <td>@Html.Label("Bestand")</td>
+                    <td><input type="file" name="file"/></td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.OnderwijsmoduleId)
+            <button class="btn btn-primary">Importeer</button>
+        }
+    </div>
+</div>

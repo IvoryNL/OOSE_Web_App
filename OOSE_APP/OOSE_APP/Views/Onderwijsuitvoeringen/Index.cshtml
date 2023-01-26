@@ -1,0 +1,20 @@
+﻿@using Logic.Models;
+@model List<Onderwijsuitvoering>
+@{
+    ViewData["Title"] = "Onderwijsuitvoeringen";
+}
+
+<div class="lessen-page">
+    <h3>Onderwijsuitvoeringenoverzicht</h3>
+    <div class="content">
+        <table>
+            @foreach (var onderwijsuitvoering in Model)
+            {
+                <tr>
+                    <td>@($"{onderwijsuitvoering.Onderwijsmodule.Naam} Periode {onderwijsuitvoering.Periode} Jaartal {onderwijsuitvoering.Jaartal}")</td>
+                    <td>@Html.ActionLink("Bekijk", "OnderwijsuitvoeringDetails", "Onderwijsuitvoeringen", new { id = onderwijsuitvoering.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

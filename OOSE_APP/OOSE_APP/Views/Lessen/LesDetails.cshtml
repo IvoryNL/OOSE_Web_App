@@ -1,0 +1,27 @@
+﻿@using Logic.Models;
+@using Logic.Enums;
+@{
+    ViewData["Title"] = "Lessen";
+}
+@model Les
+<div class="onderwijs-page">
+    <h3>Les</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Omschrijving)</td>
+                <td>@Html.DisplayTextFor(m => m.Omschrijving)</td>
+            </tr>
+        </table>
+        <h6>Lesmaterialen</h6>
+        <table>
+            @foreach (var lesmateriaal in Model.Lesmaterialen)
+            {
+                <tr>
+                    <td>@lesmateriaal.Naam</td>
+                    <td>@Html.ActionLink("Download PDF", "DownloadLesmateriaal", "Lessen", new { lesmateriaalId = lesmateriaal.Id, downloadFormaat = DownloadFormaten.Pdf })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

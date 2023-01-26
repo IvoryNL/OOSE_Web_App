@@ -196,7 +196,7 @@ namespace Presentation.Controllers
                 TentamensVanStudent = gebruikerViewModel.Gebruiker.TentamensVanStudent,
                 Klassen = gebruikerViewModel.Gebruiker.Klassen,
                 RolId = !string.IsNullOrEmpty(gebruikerViewModel.GeselecteerdeRolId) ? int.Parse(gebruikerViewModel.GeselecteerdeRolId) : gebruikerViewModel.Gebruiker.RolId,
-                OpleidingId = !string.IsNullOrEmpty(gebruikerViewModel.GeselecteerdeOpleidingId) ? int.Parse(gebruikerViewModel.GeselecteerdeOpleidingId) : gebruikerViewModel.Gebruiker.RolId
+                OpleidingId = !string.IsNullOrEmpty(gebruikerViewModel.GeselecteerdeOpleidingId) ? int.Parse(gebruikerViewModel.GeselecteerdeOpleidingId) : gebruikerViewModel.Gebruiker.OpleidingId
             };
         }
 

@@ -1,5 +1,8 @@
-﻿using Logic.Enums;
+﻿using Logic.Constants;
+using Logic.DocumentExporter.Lesmaterialen;
+using Logic.Enums;
 using Logic.Models;
+using Logic.Models.DocumentExportEnImport;
 using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Helpers;
@@ -220,6 +223,37 @@ namespace Presentation.Controllers
 
             var les = await _lesService.GetLesById(lesId, jwtToken);
             return View("Planningoverzicht", les);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LesDetails(int id)
+        {
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var les = await _lesService.GetLesById(id, jwtToken);
+
+            return View(les);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadLesmateriaal(int lesmateriaalId, DownloadFormaten downloadFormaat)
+        {
+            SetIdentity();
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var lesmateriaal = await _lesmateriaalService.GetLesmateriaalById(lesmateriaalId, jwtToken);
+            var bestandsformaat = string.Empty;
+
+            if (downloadFormaat == DownloadFormaten.Pdf)
+            {
+                bestandsformaat = Bestandsformaten.PDF;
+                lesmateriaal.ExporteerDocument = new ExportLesmateriaalToPdfStrategy();
+            }
+
+            var lesmateriaalInhoud = lesmateriaal.LesmateriaalInhoud.OrderByDescending(l => l.Versie).FirstOrDefault().Inhoud;
+            var lesmateriaalContentBytes = lesmateriaal.ExporteerDocument.ExportToDocument(lesmateriaalInhoud);
+            var outputBestand = $"{lesmateriaal.Naam}{bestandsformaat}";
+
+            return CreateDownloadFile(lesmateriaalContentBytes, ContentTypes.JSON, outputBestand);
         }
     }
 }

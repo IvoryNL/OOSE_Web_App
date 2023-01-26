@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Logic.DocumentExporter.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Logic.Models
 {
@@ -25,5 +27,8 @@ namespace Logic.Models
         public List<Les>? Lessen { get; set; }
 
         public List<LesmateriaalInhoud>? LesmateriaalInhoud { get; set; }
+
+        [JsonIgnore]
+        public IExportDocument<string> ExporteerDocument { get; set; }
     }
 }

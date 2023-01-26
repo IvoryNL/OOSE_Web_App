@@ -1,3 +1,4 @@
+using Logic.Models;
 using Logic.Services;
 using Logic.Services.Interfaces;
 
@@ -31,6 +32,11 @@ builder.Services.AddScoped<IToetsinschrijvingService, ToetsinschrijvingService>(
 builder.Services.AddScoped<IOnderwijsmoduleService, OnderwijsmoduleService>();
 builder.Services.AddScoped<IOnderwijseenheidService, OnderwijseenheidService>();
 builder.Services.AddScoped<ILeerdoelService, LeerdoelService>();
+builder.Services.AddScoped<IConsistentieCheckService, ConsistentieCheckService>();
+builder.Services.AddScoped<IBeoordelingsmodelService, BeoordelingsmodelService>();
+builder.Services.AddScoped<IBeoordelingsonderdeelService, BeoordelingsonderdeelService>();
+builder.Services.AddScoped<IBeoordelingsCriteriaService, BeoordelingscriteriaService>();
+builder.Services.AddScoped<IBeoordelingsdimensieService, BeoordelingsdimensieService>();
 
 var app = builder.Build();
 

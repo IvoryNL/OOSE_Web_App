@@ -1,0 +1,33 @@
+﻿@using Presentation.ViewModels.Beoordelingsmodellen;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model BeoordelingsmodelViewModel
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingsmodel</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("MaakBeoordelingsmodel", "Beoordelingsmodellen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Beoordelingsmodel.Naam)</td>
+                    <td>@Html.EditorFor(m => m.Beoordelingsmodel.Naam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Tentamen"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeTentamenId,
+                        Model.Tentamens.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = m.Naam
+                        }))
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary">Maak</button>
+        }
+    </div>
+</div>

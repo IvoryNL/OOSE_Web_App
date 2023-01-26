@@ -1,4 +1,5 @@
 ﻿@using Logic.Models;
+@using Logic.Constants;
 @{
     ViewData["Title"] = "Onderwijs";
 }
@@ -6,7 +7,15 @@
 <div class="onderwijs-page">
     <h3>Onderwijsmodule</h3>
     <div class="content">
-        <table>
+        @if (ViewData.Keys.Contains("Consistentie"))
+        {
+            <p class="warning">@ViewData["Consistentie"]</p>
+            ViewData.Remove("Consistentie");
+        }
+
+        @Html.ActionLink("Exporteer onderwijsmodule .json", "ExporteerOnderwijsmodule", "Onderwijs", new { onderwijsmoduleId = Model.Id, bestandsFormaat = Bestandsformaten.JSON })
+        @Html.ActionLink("Importeer onderwijseenheid", "ImporteerOnderwijseenheid", "Onderwijs", new { onderwijsmoduleId = Model.Id })
+        <table> 
             <tr>
                 <td>@Html.LabelFor(m => m.Naam)</td>
                 <td>@Html.DisplayFor(m => m.Naam)</td>
@@ -37,7 +46,9 @@
             </tr>
         </table>
         <h6>Onderwijseenheden</h6>
-        @Html.ActionLink("Nieuwe onderwijseenheid", "MaakOnderwijseenheid", "Onderwijs", new { onderwijsmoduleId = Model.Id })
+        @Html.ActionLink("Nieuwe onderwijseenheid toevoegen", "MaakOnderwijseenheid", "Onderwijs", new { onderwijsmoduleId = Model.Id })
+        @Html.ActionLink("Bestaande onderwijseenheid toevoegen", "BestaandeOnderwijseenheidToevoegen", "Onderwijs", new { onderwijsmoduleId = Model.Id })
+
         <table>
             @foreach (var onderwijseenheid in Model.Onderwijseenheden)
             {

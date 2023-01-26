@@ -1,0 +1,32 @@
+﻿@using Presentation.ViewModels.Onderwijs;
+@{
+    ViewData["Title"] = "Onderwijs";
+}
+@model OnderwijsmoduleBestaandeOnderwijseenhedenViewModel
+<div class="onderwijs-page">
+    <h3>Onderwijsmodule</h3>
+    <div class="content">
+        @using (Html.BeginForm("BestaandeOnderwijseenheidToevoegen", "Onderwijs"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Onderwijsmodule.Naam)</td>
+                    <td>@Html.DisplayFor(m => m.Onderwijsmodule.Naam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Onderwijseenheid"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeOnderwijseenheidId,
+                        Model.BestaandeOnderwijseenheden.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = m.Naam
+                        }))
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.Onderwijsmodule.Id)
+            <button class="btn btn-primary">Toevoegen</button>
+        }
+    </div>
+</div>

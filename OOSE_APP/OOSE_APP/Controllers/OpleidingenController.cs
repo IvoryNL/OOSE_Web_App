@@ -28,7 +28,7 @@ namespace Presentation.Controllers
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
-            var gebruiker = await GetIngelogdeGebruikerByEmail(jwtToken);
+            var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
 
             return View(gebruiker);
         }
@@ -39,7 +39,7 @@ namespace Presentation.Controllers
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
-            var gebruiker = await GetIngelogdeGebruikerByEmail(jwtToken);
+            var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
             var viewModel = new OpleidingsprofielViewModel();
             viewModel.OpleidingVanStudent = gebruiker.Opleiding;
             viewModel.OpleidingsprofielVanStudent = gebruiker.Opleidingsprofiel;
@@ -54,18 +54,12 @@ namespace Presentation.Controllers
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
-            var gebruiker = await GetIngelogdeGebruikerByEmail(jwtToken);
+            var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
             gebruiker.OpleidingsprofielId = int.Parse(opleidingsprofielViewModel.GeselecteerdeOpleidingsprofielId);
 
             await _gebruikerService.UpdateGebruiker(gebruiker.Id, gebruiker, jwtToken);
 
             return RedirectToAction("Index");
-        }
-
-        private async Task<VolledigeGebruikerModelDto> GetIngelogdeGebruikerByEmail(string jwtToken)
-        {
-            var ingelogdeGebruikerEmail = GetLoggedInUserEmail();
-            return await _gebruikerService.GetGebruikerByEmail(ingelogdeGebruikerEmail, jwtToken);
         }
     }
 }

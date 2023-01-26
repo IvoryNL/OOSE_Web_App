@@ -1,0 +1,49 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingscriteria
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingscriteria</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Criteria)</td>
+                <td>@Html.DisplayFor(m => m.Criteria)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Omschrijving)</td>
+                <td>@Html.DisplayTextFor(m => m.Omschrijving)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Resultaat)</td>
+                <td>@Html.DisplayFor(m => m.Resultaat)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Gewicht)</td>
+                <td>@Html.DisplayFor(m => m.Gewicht)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Grens)</td>
+                <td>@Html.DisplayFor(m => m.Grens)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Verplicht)</td>
+                <td>@Html.DisplayFor(m => m.Verplicht)</td>
+            </tr>
+        </table>
+        <h6>Onderwijseenheden</h6>
+        @Html.ActionLink("Nieuwe beoordelingsdimensie toevoegen", "MaakBeoordelingsdimensie", "Beoordelingsmodellen", new { beoordelingscriteriaId = Model.Id })
+
+        <table>
+            @foreach (var beoordelingsdimensie in Model.Beoordelingsdimensies)
+            {
+                <tr>
+                    <td>@beoordelingsdimensie.Titel</td>
+                    <td>@Html.ActionLink("Bekijk", "BeoordelingsdimensieDetails", "Beoordelingsmodellen", new { id = beoordelingsdimensie.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigBeoordelingsdimensie", "Beoordelingsmodellen", new { id = beoordelingsdimensie.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

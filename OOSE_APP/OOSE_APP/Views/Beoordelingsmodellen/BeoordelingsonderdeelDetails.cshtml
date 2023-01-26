@@ -1,0 +1,45 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingsonderdeel
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingsonderdeel</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Titel)</td>
+                <td>@Html.DisplayFor(m => m.Titel)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Resultaat)</td>
+                <td>@Html.DisplayFor(m => m.Resultaat)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Gewicht)</td>
+                <td>@Html.DisplayFor(m => m.Gewicht)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Grens)</td>
+                <td>@Html.DisplayFor(m => m.Grens)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Verplicht)</td>
+                <td>@Html.DisplayFor(m => m.Verplicht)</td>
+            </tr>
+        </table>
+        <h6>Onderwijseenheden</h6>
+        @Html.ActionLink("Nieuwe beoordelingscriteria toevoegen", "MaakBeoordelingscriteria", "Beoordelingsmodellen", new { beoordelingsonderdeelId = Model.Id })
+
+        <table>
+            @foreach (var beoordelingscriteria in Model.Beoordelingscriterium)
+            {
+                <tr>
+                    <td>@beoordelingscriteria.Criteria</td>
+                    <td>@Html.ActionLink("Bekijk", "BeoordelingscriteriaDetails", "Beoordelingsmodellen", new { id = beoordelingscriteria.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigBeoordelingscriteria", "Beoordelingsmodellen", new { id = beoordelingscriteria.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -27,11 +27,11 @@ namespace Logic.Services
             return await _httpService.GetAsync<Onderwijsmodule>(uri, jwtToken);
         }
 
-        public async Task<Onderwijsmodule> GetOnderwijsmoduleVoorExportById(int id, string jwtToken)
+        public async Task<Models.DocumentExportEnImport.Onderwijsmodule> GetOnderwijsmoduleVoorExportById(int id, string jwtToken)
         {
             var uri = $"{ApiUrl.BASE_URL}/Onderwijsmodule/GetOnderwijsmoduleVoorExportById/{id}";
 
-            return await _httpService.GetAsync<Onderwijsmodule>(uri, jwtToken);
+            return await _httpService.GetAsync<Models.DocumentExportEnImport.Onderwijsmodule>(uri, jwtToken);
         }
 
         public async Task CreateOnderwijsmodule(Onderwijsmodule onderwijsmodule, string jwtToken)
@@ -56,6 +56,20 @@ namespace Logic.Services
         }
 
         public async Task VoegOnderwijseenheidToe(int id, Onderwijseenheid onderwijseenheid, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Onderwijsmodule/VoegOnderwijseenheidToe/{id}";
+
+            await _httpService.PutAsync(uri, onderwijseenheid, jwtToken);
+        }
+
+        public async Task ImporteerOnderwijsmodule(Models.DocumentExportEnImport.Onderwijsmodule onderwijsmodule, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Onderwijsmodule/Create";
+
+            await _httpService.PostAsync(uri, onderwijsmodule, jwtToken);
+        }
+
+        public async Task ImporteerOnderwijseenheid(int id, Models.DocumentExportEnImport.Onderwijseenheid onderwijseenheid, string jwtToken)
         {
             var uri = $"{ApiUrl.BASE_URL}/Onderwijsmodule/VoegOnderwijseenheidToe/{id}";
 

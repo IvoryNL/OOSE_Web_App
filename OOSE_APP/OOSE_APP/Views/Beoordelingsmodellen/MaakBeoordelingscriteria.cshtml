@@ -1,0 +1,43 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingscriteria
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingscriteria</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("MaakBeoordelingscriteria", "Beoordelingsmodellen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Criteria)</td>
+                    <td>@Html.EditorFor(m => m.Criteria)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Omschrijving)</td>
+                    <td>@Html.TextAreaFor(m => m.Omschrijving)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Resultaat)</td>
+                    <td>@Html.EditorFor(m => m.Resultaat)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Gewicht)</td>
+                    <td>@Html.EditorFor(m => m.Gewicht)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Grens)</td>
+                    <td>@Html.EditorFor(m => m.Grens)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Verplicht)</td>
+                    <td>@Html.EditorFor(m => m.Verplicht)</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.BeoordelingsonderdeelId)
+            <button class="btn btn-primary">Maak</button>
+        }
+    </div>
+</div>

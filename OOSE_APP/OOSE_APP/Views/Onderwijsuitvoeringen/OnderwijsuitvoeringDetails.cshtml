@@ -1,0 +1,30 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Onderwijsuitvoeringen";
+}
+@model Onderwijsuitvoering
+<div class="onderwijs-page">
+    <h3>Onderwijsmodule</h3>
+    <div class="content">
+        @if (ViewData.Keys.Contains("Consistentie"))
+        {
+            <p class="warning">@ViewData["Consistentie"]</p>
+            ViewData.Remove("Consistentie");
+        }
+
+        <table>
+            <tr>
+                <td>@Html.Label("Onderwijsmodule")</td>
+                <td>@Html.DisplayFor(m => m.Onderwijsmodule.Naam)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Jaartal)</td>
+                <td>@Html.DisplayFor(m => m.Jaartal)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Periode)</td>
+                <td>@Html.DisplayFor(m => m.Periode)</td>
+            </tr>
+        </table>
+    </div>
+</div>

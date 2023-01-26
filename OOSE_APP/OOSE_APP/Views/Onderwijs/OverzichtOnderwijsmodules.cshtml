@@ -7,7 +7,8 @@
 <div class="onderwijs-page">
     <h3>Onderwijsmodulesoverzicht</h3>
     <div class="content">
-        @Html.ActionLink("Nieuwe onderwijsmodule", "MaakOnderwijsmodule", "Onderwijs", new { opleidingId = Model.OpleidingId })
+        @Html.ActionLink("Nieuwe onderwijsmodule toevoegen", "MaakOnderwijsmodule", "Onderwijs", new { opleidingId = Model.OpleidingId })
+        @Html.ActionLink("Importeer onderwijsmodule", "ImporteerOnderwijsmodule", "Onderwijs", new { opleidingId = Model.OpleidingId })
         <table>
             @foreach (var onderwijsmodule in Model.Onderwijsmodules)
             {

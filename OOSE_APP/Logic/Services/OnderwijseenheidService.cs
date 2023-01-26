@@ -26,5 +26,19 @@ namespace Logic.Services
 
             return await _httpService.GetAsync<Onderwijseenheid>(uri, jwtToken);
         }
+
+        public async Task<List<Onderwijseenheid>> GetAllOnderwijseenheden(string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Onderwijseenheid/GetAll";
+
+            return await _httpService.GetAsync<List<Onderwijseenheid>>(uri, jwtToken);
+        }
+
+        public async Task<Models.DocumentExportEnImport.Onderwijseenheid> GetOnderwijseenheidVoorExportById(int id, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Onderwijseenheid/GetById/{id}";
+
+            return await _httpService.GetAsync<Models.DocumentExportEnImport.Onderwijseenheid>(uri, jwtToken);
+        }
     }
 }

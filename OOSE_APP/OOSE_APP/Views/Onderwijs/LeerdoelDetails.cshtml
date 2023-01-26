@@ -17,7 +17,7 @@
             </tr>
         </table>
         <h6>Leeruitkomsten</h6>
-        @Html.ActionLink("Nieuwe leeruitkomst", "MaakLeeruitkomst", "Onderwijs", new { leerdoelId = Model.Id })
+        @Html.ActionLink("Nieuwe leeruitkomst toevoegen", "MaakLeeruitkomst", "Onderwijs", new { leerdoelId = Model.Id })
         <table>
             @foreach (var leeruitkomst in Model.Leeruitkomsten)
             {
@@ -25,6 +25,8 @@
                     <td>@leeruitkomst.Naam</td>
                     <td>@Html.ActionLink("Bekijk", "LeeruitkomstDetails", "Onderwijs", new { leeruitkomstId = leeruitkomst.Id })</td>
                     <td>@Html.ActionLink("Wijzig", "WijzigLeeruitkomst", "Onderwijs", new { leeruitkomstId = leeruitkomst.Id })</td>
+                    <td>@(leeruitkomst.Haslessen() ? "Gedekt door lessen" : "Niet gedekt door lessen")</td>
+                    <td>@(leeruitkomst.HasTentamens() ? "Gedekt door tentamens" : "Niet gedekt door tentamens")</td>
                 </tr>
             }
         </table>

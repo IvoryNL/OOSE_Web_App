@@ -1,0 +1,37 @@
+﻿@using Presentation.ViewModels.Beoordelingsmodellen;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model BeoordelingsmodelViewModel
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingsmodel</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("WijzigBeoordelingsmodel", "Beoordelingsmodellen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Beoordelingsmodel.Naam)</td>
+                    <td>@Html.EditorFor(m => m.Beoordelingsmodel.Naam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Tentamen"):</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GeselecteerdeTentamenId,
+                        Model.Tentamens.Select(m => new SelectListItem
+                        {
+                            Value = m.Id.ToString(),
+                            Text = m.Naam,
+                            Selected = Model.Beoordelingsmodel.TentamenId == m.Id
+                        }))
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.Beoordelingsmodel.Id)
+            @Html.HiddenFor(m => m.Beoordelingsmodel.DocentId)
+            @Html.HiddenFor(m => m.Beoordelingsmodel.StatusId)
+            <button class="btn btn-primary">Wijzig</button>
+        }
+    </div>
+</div>

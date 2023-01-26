@@ -1,4 +1,5 @@
-﻿@using Logic.Enums;
+﻿@using Logic.Constants;
+@using Logic.Enums;
 @using Logic.Models;
 @model List<Les>
 @{
@@ -13,9 +14,13 @@
             {
                 <tr>
                     <td>@les.Omschrijving</td>
-                    <td>@Html.ActionLink("Leeruitkomsten", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Leeruitkomsten})</td>
-                    <td>@Html.ActionLink("Lesmaterialen", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Lesmaterialen})</td>
-                    <td>@Html.ActionLink("Planningen", "Overzicht", "Lessen", new {id = les.Id, actionType = ControllerActionTypes.Planningen})</td>
+                    <td>@Html.ActionLink("Bekijk", "LesDetails", "Lessen", new { id = les.Id })</td>
+                    @if (User.IsInRole(Rollen.DOCENT))
+                    {
+                        <td>@Html.ActionLink("Leeruitkomsten", "Overzicht", "Lessen", new { id = les.Id, actionType = ControllerActionTypes.Leeruitkomsten })</td>
+                        <td>@Html.ActionLink("Lesmaterialen", "Overzicht", "Lessen", new { id = les.Id, actionType = ControllerActionTypes.Lesmaterialen })</td>
+                        <td>@Html.ActionLink("Planningen", "Overzicht", "Lessen", new { id = les.Id, actionType = ControllerActionTypes.Planningen })</td>
+                    }
                 </tr>
             }
         </table>

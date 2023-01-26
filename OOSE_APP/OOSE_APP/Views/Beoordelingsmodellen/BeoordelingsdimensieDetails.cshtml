@@ -1,0 +1,28 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingsdimensie
+<div class="onderwijs-page">
+    <h3>Beoordelingsdimensie</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Titel)</td>
+                <td>@Html.DisplayFor(m => m.Titel)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Omschrijving)</td>
+                <td>@Html.DisplayTextFor(m => m.Omschrijving)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Toelichting)</td>
+                <td>@Html.DisplayTextFor(m => m.Toelichting)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Cijferwaarde)</td>
+                <td>@Html.DisplayFor(m => m.Cijferwaarde)</td>
+            </tr>
+        </table>
+    </div>
+</div>

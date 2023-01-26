@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic.Models.Dto;
+using System.ComponentModel.DataAnnotations;
 
 namespace Logic.Models
 {
@@ -15,5 +12,15 @@ namespace Logic.Models
         public int DocentId { get; set; }
 
         public int StatusId { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string Naam { get; set; }
+
+        public Tentamen? Tentamen { get; set; }
+
+        public Status? Status { get; set; }
+
+        public List<Beoordelingsonderdeel>? Beoordelingsonderdelen { get; set; }
     }
 }

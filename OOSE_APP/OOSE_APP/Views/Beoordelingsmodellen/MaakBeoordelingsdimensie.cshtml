@@ -1,0 +1,35 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingsdimensie
+<div class="onderwijs-page">
+    <h3>Beoordelingsdimensie</h3>
+    <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
+        @using (Html.BeginForm("MaakBeoordelingsdimensie", "Beoordelingsmodellen"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Titel)</td>
+                    <td>@Html.EditorFor(m => m.Titel)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Omschrijving)</td>
+                    <td>@Html.TextAreaFor(m => m.Omschrijving)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Toelichting)</td>
+                    <td>@Html.TextAreaFor(m => m.Toelichting)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Cijferwaarde)</td>
+                    <td>@Html.EditorFor(m => m.Cijferwaarde)</td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.BeoordelingscriteriaId)
+            <button class="btn btn-primary">Maak</button>
+        }
+    </div>
+</div>

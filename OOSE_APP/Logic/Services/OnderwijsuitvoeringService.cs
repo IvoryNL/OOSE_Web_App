@@ -19,5 +19,12 @@ namespace Logic.Services
 
             return await _httpService.GetAsync<List<Onderwijsuitvoering>>(uri, jwtToken);
         }
+
+        public async Task<Onderwijsuitvoering> GetOnderwijsuitvoeringById(int id, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Onderwijsuitvoering/GetById/{id}";
+
+            return await _httpService.GetAsync<Onderwijsuitvoering>(uri, jwtToken);
+        }
     }
 }

@@ -58,7 +58,8 @@ h3 {
 }
 
 .home-page, .gebruiker-page, .account-page, .opleidingen-page,
-.lessen-page, .tentamens-page, .onderwijs-page {
+.lessen-page, .tentamens-page, .onderwijs-page, .beoordelingen-page,
+.beoordelingsmodellen-page {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -96,4 +97,13 @@ td {
 
 .float-right {
     float: right;
+}
+
+.warning {
+    color: darkorange;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 191, 0, 0.1);
 }

@@ -6,6 +6,8 @@
 <div class="onderwijs-page">
     <h3>Onderwijseenheid</h3>
     <div class="content">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("all")
         @using (Html.BeginForm("WijzigOnderwijseenheid", "Onderwijs"))
         {
             <table>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Logic.Models
 {
@@ -19,5 +20,9 @@ namespace Logic.Models
         public List<Tentamen>? Tentamens { get; set; }
 
         public List<Les>? Lessen { get; set; }
+
+        public bool Haslessen() => Lessen.Any();
+
+        public bool HasTentamens() => Tentamens.Any();
     }
 }

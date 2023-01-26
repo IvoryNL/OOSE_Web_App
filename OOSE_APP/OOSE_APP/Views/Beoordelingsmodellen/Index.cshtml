@@ -1,0 +1,21 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model List<Beoordelingsmodel>
+<div class="beoordelingsmodellen-page">
+    <h3>Opleidingoverzicht</h3>
+    <div class="content">
+        @Html.ActionLink("Nieuwe beoordelingsmodel toevoegen", "MaakBeoordelingsmodel", "Beoordelingsmodellen")
+        <table>
+            @foreach (var beoordelingsmodel in Model)
+            {
+                <tr>
+                    <td>@beoordelingsmodel.Naam</td>
+                    <td>@Html.ActionLink("Bekijk", "BeoordelingsmodelDetails", "Beoordelingsmodellen", new { id = beoordelingsmodel.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigBeoordelingsmodel", "Beoordelingsmodellen", new { id = beoordelingsmodel.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

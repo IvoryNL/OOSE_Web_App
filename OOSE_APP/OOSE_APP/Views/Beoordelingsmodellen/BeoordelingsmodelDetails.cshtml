@@ -1,0 +1,33 @@
+﻿@using Logic.Models;
+@{
+    ViewData["Title"] = "Beoordelingsmodellen";
+}
+@model Beoordelingsmodel
+<div class="beoordelingsmodellen-page">
+    <h3>Beoordelingsmodel</h3>
+    <div class="content">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Naam)</td>
+                <td>@Html.DisplayFor(m => m.Naam)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Tentamen)</td>
+                <td>@Html.DisplayFor(m => m.Tentamen.Naam)</td>
+            </tr>
+        </table>
+        <h6>Onderwijseenheden</h6>
+        @Html.ActionLink("Nieuwe beoordelingsonderdeel toevoegen", "MaakBeoordelingsonderdeel", "Beoordelingsmodellen", new { beoordelingsmodelId = Model.Id })
+
+        <table>
+            @foreach (var beoordelingsonderdeel in Model.Beoordelingsonderdelen)
+            {
+                <tr>
+                    <td>@beoordelingsonderdeel.Titel</td>
+                    <td>@Html.ActionLink("Bekijk", "BeoordelingsonderdeelDetails", "Beoordelingsmodellen", new { id = beoordelingsonderdeel.Id })</td>
+                    <td>@Html.ActionLink("Wijzig", "WijzigBeoordelingsonderdeel", "Beoordelingsmodellen", new { id = beoordelingsonderdeel.Id })</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

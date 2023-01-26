@@ -23,6 +23,8 @@ namespace Presentation.Views.Shared.Components.NavBar
             {
                 menuItems.Add("Onderwijs");
                 menuItems.Add("Beoordelingen");
+                menuItems.Add("Beoordelingsmodellen");
+                menuItems.Add("Onderwijsuitvoeringen");
 
             }
 
