@@ -1,11 +1,10 @@
 using Logic.DocumentImporter.Onderwijseenheden;
 using Logic.Models.DocumentExportEnImport;
-using Presentation.Controllers;
 using System.Text;
 
 namespace OOSE_APP_Test
 {
-    public class ImportOnderwijseenheidTest : BaseController
+    public class ImportOnderwijseenheidTest
     {
         private Onderwijseenheid onderwijseenheid;
         public ImportOnderwijseenheidTest()
