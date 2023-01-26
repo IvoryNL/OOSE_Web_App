@@ -34,6 +34,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var klassen = await _klasService.GetAllKlassen(jwtToken);
 
@@ -49,6 +54,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var klas = await _klasService.GetKlasById(id, jwtToken);
@@ -67,6 +77,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var student = await _gebruikerService.GetGebruikerById(id, jwtToken);
             var tentamens = student.TentamensVanStudent;
@@ -83,6 +98,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsmodel = await _beoordelingsmodelService.GetBeoordelingsmodelByTentamenId(tentamenId, jwtToken);
@@ -106,6 +126,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _beoordelingService.CreateBeoordeling(beoordeling, jwtToken);

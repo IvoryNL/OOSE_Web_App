@@ -19,7 +19,17 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijsuitvoeringen = await _onderwijsuitvoeringService.GetAllOnderwijsuitvoeringen(jwtToken);
@@ -29,7 +39,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> OnderwijsuitvoeringDetails(int id)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var isConsistent = await _consistentieCheckService.ConsistentieCheckTentamenPlanning(id, jwtToken);

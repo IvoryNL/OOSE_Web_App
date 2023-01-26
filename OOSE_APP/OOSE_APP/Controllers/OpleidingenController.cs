@@ -36,6 +36,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> WijzigOpleidingsprofiel()
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -51,6 +56,11 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigOpleidingsprofiel(OpleidingsprofielViewModel opleidingsprofielViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);

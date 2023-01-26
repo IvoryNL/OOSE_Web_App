@@ -79,6 +79,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var lesMaterialen = await _lesmateriaalService.GetAllLesmaterialen(jwtToken);
 
@@ -92,7 +97,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> KoppelLesmateriaalAanLes(LessenViewModel lessenViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var les = await _lesService.GetLesById(lessenViewModel.LesId, jwtToken);
@@ -108,7 +123,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> OntkoppelLesmateriaalVanLes(int lesId, int lesmateriaalId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _lesService.OntkoppelLesmateriaalVanLes(lesId, lesmateriaalId, jwtToken);
@@ -127,6 +152,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leeruitkomsten = await _leeruitkomstService.GetAllLeeruitkomsten(jwtToken);
             var opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
@@ -142,7 +172,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> KoppelLeeruitkomstAanLes(LessenViewModel lessenViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var les = await _lesService.GetLesById(lessenViewModel.LesId, jwtToken);
@@ -158,7 +198,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> OntkoppelLeeruitkomstVanLes(int lesId, int leeruitkomstId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _lesService.OntkoppelLeeruitkomstVanLes(lesId, leeruitkomstId, jwtToken);
@@ -170,7 +220,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterLeeruitkomstenViaOpleiding(LessenViewModel lessenViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             lessenViewModel.Leeruitkomsten = await _leeruitkomstService.GetLeeruitkomstenByOpleidingId(int.Parse(lessenViewModel.GeselecteerdeOpleidingId), jwtToken);
@@ -189,6 +249,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new LessenViewModel();
             viewModel.LesId = lesId;
@@ -200,7 +265,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> InplannenLes(LessenViewModel lessenViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var les = await _lesService.GetLesById(lessenViewModel.LesId, jwtToken);
@@ -216,7 +291,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> VerwijderPlanningVanLes(int lesId, int planningId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _lesService.VerwijderPlanningVanLes(lesId, planningId, jwtToken);
@@ -228,6 +313,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> LesDetails(int id)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var les = await _lesService.GetLesById(id, jwtToken);
 
@@ -237,6 +327,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> DownloadLesmateriaal(int lesmateriaalId, DownloadFormaten downloadFormaat)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);

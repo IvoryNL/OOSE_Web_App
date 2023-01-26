@@ -133,7 +133,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigGebruiker(GebruikerViewModel gebruikerViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var gebruiker = MapGebruikerViewModelGebruikerToDtoMode(gebruikerViewModel);
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -153,7 +163,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> KoppelStudentAanKlas(GebruikerViewModel gebruikerViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var gebruiker = MapGebruikerViewModelGebruikerToDtoMode(gebruikerViewModel);
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);

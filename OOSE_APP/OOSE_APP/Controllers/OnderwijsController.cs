@@ -47,6 +47,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
                     
@@ -62,6 +67,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new OnderwijsmoduleOverzichtViewModel();
@@ -80,6 +90,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var isConsistent = await _consistentieCheckService.ConsistentieCheckCoverage(onderwijsmoduleId, jwtToken);
@@ -103,6 +118,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var onderwijsModule = new Onderwijsmodule();
             onderwijsModule.OpleidingId = opleidingid;
             onderwijsModule.StatusId = 3;
@@ -113,7 +133,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> MaakOnderwijsmodule(Onderwijsmodule onderwijsmodule)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -146,6 +176,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijsModule = await _onderwijsmoduleService.GetOnderwijsmoduleById(onderwijsmoduleId, jwtToken);
 
@@ -155,7 +190,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigOnderwijsmodule(Onderwijsmodule onderwijsmodule)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -188,6 +233,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new OnderwijsmoduleBestaandeOnderwijseenhedenViewModel();
             viewModel.Onderwijsmodule = await _onderwijsmoduleService.GetOnderwijsmoduleById(onderwijsmoduleId, jwtToken);
@@ -199,7 +249,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> BestaandeOnderwijseenheidToevoegen(OnderwijsmoduleBestaandeOnderwijseenhedenViewModel viewModel)
         {
-            SetIdentity();  
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidById(int.Parse(viewModel.GeselecteerdeOnderwijseenheidId), jwtToken);
@@ -218,6 +278,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidById(onderwijseenheidId, jwtToken);
 
@@ -234,6 +299,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var viewModel = new OnderwijseenheidViewModel();
             viewModel.OnderwijsmoduleId = onderwijsmoduleId;
 
@@ -243,7 +313,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> MaakOnderwijseenheid(OnderwijseenheidViewModel onderwijseenheidViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -276,6 +356,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new OnderwijseenheidViewModel();
             viewModel.OnderwijsmoduleId = onderwijsmoduleId;
@@ -287,7 +372,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigOnderwijseenheid(OnderwijseenheidViewModel onderwijseenheidViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -320,6 +415,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leerdoel = await _leerdoelService.GetLeerdoelById(leerdoelId, jwtToken);
 
@@ -336,6 +436,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var leerdoel = new Leerdoel();
             leerdoel.OnderwijseenheidId = onderwijseenheidId;
 
@@ -345,7 +450,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> MaakLeerdoel(Leerdoel leerdoel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -378,6 +493,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leerdoel = await _leerdoelService.GetLeerdoelById(leerdoelId, jwtToken);
 
@@ -387,7 +507,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigLeerdoel(Leerdoel leerdoel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -420,6 +550,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leerdoel = await _leeruitkomstService.GetLeeruitkomstById(leeruitkomstId, jwtToken);
 
@@ -436,6 +571,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var leeruitkomst = new Leeruitkomst();
             leeruitkomst.LeerdoelId = leerdoelId;
 
@@ -445,7 +585,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> MaakLeeruitkomst(Leeruitkomst leeruitkomst)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -478,6 +628,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leeruitkomst = await _leeruitkomstService.GetLeeruitkomstById(leeruitkomstId, jwtToken);
 
@@ -487,7 +642,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> WijzigLeeruitkomst(Leeruitkomst leeruitkomst)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             if (!ModelState.IsValid)
             {
@@ -513,6 +678,18 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult ImporteerOnderwijsmodule(int opleidingId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var viewModel = new ImporteerOnderwijsmoduleViewModel();
             viewModel.OpleidingId = opleidingId;
 
@@ -522,6 +699,18 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> ImporteerOnderwijsmodule(ImporteerOnderwijsmoduleViewModel viewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var onderwijsmodule = new Logic.Models.DocumentExportEnImport.Onderwijsmodule();
             onderwijsmodule.ImporteerDocument = new ImportOnderwijsmoduleFromJsonStringStrategy();
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -550,6 +739,18 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> ExporteerOnderwijsmodule(int onderwijsmoduleId, string bestandsformaat)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijsmodule = await _onderwijsmoduleService.GetOnderwijsmoduleVoorExportById(onderwijsmoduleId, jwtToken);
             onderwijsmodule.ExporteerDocument = new ExportOnderwijsmoduleToJsonStrategy();
@@ -563,6 +764,18 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult ImporteerOnderwijseenheid(int onderwijsmoduleId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var viewModel = new ImporteerOnderwijseenheidViewModel();
             viewModel.OnderwijsmoduleId = onderwijsmoduleId;
 
@@ -572,6 +785,18 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> ImporteerOnderwijseenheid(ImporteerOnderwijseenheidViewModel viewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var onderwijseenheid = new Logic.Models.DocumentExportEnImport.Onderwijseenheid();
             onderwijseenheid.ImporteerDocument = new ImportOnderwijseenheidFromJsonStringStrategy();
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -600,6 +825,18 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> ExporteerOnderwijseenheid(int onderwijseenheidId, string bestandsformaat)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidVoorExportById(onderwijseenheidId, jwtToken);
             onderwijseenheid.ExporteerDocument = new ExportOnderwijseenheidToJsonStrategy();

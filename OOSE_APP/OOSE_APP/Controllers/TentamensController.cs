@@ -55,6 +55,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Overzicht(int id, ControllerActionTypes actionType)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -83,6 +88,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leeruitkomsten = await _leeruitkomstService.GetAllLeeruitkomsten(jwtToken);
             var opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
@@ -98,7 +108,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> KoppelLeeruitkomstAanTentamen(TentamensViewModel tentamensViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var tentamen = await _tentamenService.GetTentamenById(tentamensViewModel.TentamenId, jwtToken);
@@ -114,7 +134,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> OntkoppelLeeruitkomstVanTentamen(int tentamenId, int leeruitkomstId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _tentamenService.OntkoppelLeeruitkomstVanTentamen(tentamenId, leeruitkomstId, jwtToken);
@@ -126,7 +156,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterLeeruitkomstenViaOpleiding(TentamensViewModel tentamenViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             tentamenViewModel.Leeruitkomsten = await _leeruitkomstService.GetLeeruitkomstenByOpleidingId(int.Parse(tentamenViewModel.GeselecteerdeOpleidingId), jwtToken);
@@ -145,6 +185,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new TentamensViewModel();
             viewModel.TentamenId = tentamenId;
@@ -156,7 +201,17 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> InplannenTentamen(TentamensViewModel tentamensViewModel)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var tentamen = await _tentamenService.GetTentamenById(tentamensViewModel.TentamenId, jwtToken);
@@ -172,7 +227,17 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> VerwijderPlanningVanTentamen(int tentamenId, int planningId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             await _tentamenService.VerwijderPlanningVanTentamen(tentamenId, planningId, jwtToken);
@@ -184,6 +249,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> InschrijvenVoorTentamen(int tentamenId, int planningId)
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);

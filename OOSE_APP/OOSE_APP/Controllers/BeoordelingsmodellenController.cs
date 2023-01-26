@@ -41,6 +41,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsmodellen = await _beoordelingsmodelService.GetAllBeoordelingsmodellen(jwtToken);
 
@@ -56,6 +61,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsmodel = await _beoordelingsmodelService.GetBeoordelingsmodelById(id, jwtToken);
@@ -73,6 +83,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new BeoordelingsmodelViewModel();
             viewModel.Tentamens = await _tentamenService.GetAllTentamens(jwtToken);
@@ -89,6 +104,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             viewModel.Beoordelingsmodel.TentamenId = int.Parse(viewModel.GeselecteerdeTentamenId);
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -119,6 +139,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new BeoordelingsmodelViewModel();
             viewModel.Beoordelingsmodel = await _beoordelingsmodelService.GetBeoordelingsmodelById(id, jwtToken);
@@ -136,6 +161,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
@@ -166,6 +196,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsonderdeel = await _beoordelingsonderdeelService.GetBeoordelingsonderdeelById(id, jwtToken);
 
@@ -182,6 +217,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var beoordelingsonderdeel = new Beoordelingsonderdeel();
             beoordelingsonderdeel.BeoordelingsmodelId = beoordelingsmodelId;
 
@@ -197,6 +237,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
@@ -223,6 +268,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsonderdeel = await _beoordelingsonderdeelService.GetBeoordelingsonderdeelById(id, jwtToken);
 
@@ -238,6 +288,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
@@ -264,6 +319,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingscriteria = await _beoordelingscriteriaService.GetBeoordelingscriteriaById(id, jwtToken);
 
@@ -280,6 +340,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var beoordelingscriteria = new Beoordelingscriteria();
             beoordelingscriteria.BeoordelingsonderdeelId = beoordelingsonderdeelId;
 
@@ -295,6 +360,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
@@ -321,6 +391,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingscriteria = await _beoordelingscriteriaService.GetBeoordelingscriteriaById(id, jwtToken);
 
@@ -336,6 +411,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
@@ -362,6 +442,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsdimensie = await _beoordelingsdimensieService.GetBeoordelingsdimensieById(id, jwtToken);
 
@@ -378,6 +463,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var beoordelingsdimensie = new Beoordelingsdimensie();
             beoordelingsdimensie.BeoordelingscriteriaId = beoordelingscriteriaId;
 
@@ -393,6 +483,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
@@ -419,6 +514,11 @@ namespace Presentation.Controllers
 
             SetIdentity();
 
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var beoordelingsdimensie = await _beoordelingsdimensieService.GetBeoordelingsdimensieById(id, jwtToken);
 
@@ -434,6 +534,11 @@ namespace Presentation.Controllers
             }
 
             SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
 
             try
             {
