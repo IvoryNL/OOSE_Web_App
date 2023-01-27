@@ -111,7 +111,6 @@ namespace Presentation.Controllers
             beoordeling.TentamenUploadId = tentamenVanStudentId;
             beoordeling.DocentId = docent.Id;
             beoordeling.Datum = DateTime.Now;
-            beoordeling.StatusId = (int)Status.Definitief;
             beoordeling.BeoordelingsmodelId = beoordelingsmodel.Id;
 
             return View(beoordeling);

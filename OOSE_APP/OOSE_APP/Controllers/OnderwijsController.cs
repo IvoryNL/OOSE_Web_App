@@ -125,7 +125,6 @@ namespace Presentation.Controllers
 
             var onderwijsModule = new Onderwijsmodule();
             onderwijsModule.OpleidingId = opleidingid;
-            onderwijsModule.StatusId = 3;
 
             return View(onderwijsModule);
         }

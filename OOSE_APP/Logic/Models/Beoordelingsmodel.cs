@@ -11,8 +11,6 @@ namespace Logic.Models
 
         public int DocentId { get; set; }
 
-        public int StatusId { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Naam { get; set; }
