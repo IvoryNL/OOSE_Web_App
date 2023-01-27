@@ -36,8 +36,6 @@ namespace Logic.Models.DocumentExportEnImport
 
         public Opleiding? Opleiding { get; set; }
 
-        public Status? Status { get; set; }
-
         public List<Onderwijseenheid>? Onderwijseenheden { get; set; }
 
         public List<Onderwijsuitvoering>? Onderwijsuitvoeringen { get; set; }

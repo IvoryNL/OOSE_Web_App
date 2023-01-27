@@ -10,6 +10,6 @@ namespace Logic.Models
         [MaxLength(10)]
         public string Klasnaam { get; set; }
 
-        public List<VolledigeGebruikerModelDto> Gebruikers { get; set; }
+        public List<VolledigeGebruikerModelDto>? Gebruikers { get; set; }
     }
 }

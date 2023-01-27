@@ -19,7 +19,7 @@ namespace Logic.Models
 
         public Tentamen? Tentamen { get; set; }
 
-        public Status? Status { get; set; }
+        public VolledigeGebruikerModelDto? Docent { get; set; }
 
         public List<Beoordelingsonderdeel>? Beoordelingsonderdelen { get; set; }
     }
