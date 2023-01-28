@@ -4,22 +4,24 @@ using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using Logic.Constants;
 using Logic.DocumentExporter.Interfaces;
+using Logic.Models;
 using Logic.Models.DocumentExportEnImport;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Logic.DocumentExporter.Lesmaterialen
 {
-    public class ExportLesmateriaalToPdfStrategy : IExportDocument<string>
+    public class ExportLesmateriaalToPdfStrategy : IExportDocument<Lesmateriaal>
     {
-        public byte[] ExportToDocument(string jsonString)
+        public byte[] ExportToDocument(Lesmateriaal lesmateriaal)
         {
-            return GenereerDocument(jsonString);
+            return GenereerDocumentBytes(lesmateriaal);
         }
 
-        private byte[] GenereerDocument(string jsonString)
+        private byte[] GenereerDocumentBytes(Lesmateriaal lesmateriaal)
         {
-            var jsonDocument = ConverteerNaarJsonObject(jsonString);
+            var lesmateriaalInhoud = lesmateriaal.LesmateriaalInhoud.OrderByDescending(l => l.Versie).FirstOrDefault();
+            var jsonDocument = ConverteerNaarJsonObject(lesmateriaalInhoud.Inhoud);
             return CreateDocument(jsonDocument);
         }
 

@@ -1,7 +1,5 @@
-﻿using Logic.Models.Dto;
-using Logic.Services.Interfaces;
+﻿using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Presentation.Helpers;
 using Presentation.ViewModels.Opleidingen;
 

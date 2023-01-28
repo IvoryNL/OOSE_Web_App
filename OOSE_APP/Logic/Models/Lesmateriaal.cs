@@ -29,6 +29,16 @@ namespace Logic.Models
         public List<LesmateriaalInhoud>? LesmateriaalInhoud { get; set; }
 
         [JsonIgnore]
-        public IExportDocument<string> ExporteerDocument { get; set; }
+        private IExportDocument<Lesmateriaal> ExporteerDocument { get; set; }
+
+        public void SetExportStrategy(IExportDocument<Lesmateriaal> exportDocumentStrategy)
+        {
+            ExporteerDocument = exportDocumentStrategy;
+        }
+
+        public byte[] Exporteer()
+        {
+            return ExporteerDocument.ExportToDocument(this);
+        }
     }
 }

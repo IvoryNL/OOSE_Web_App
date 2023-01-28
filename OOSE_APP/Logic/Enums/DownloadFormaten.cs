@@ -4,5 +4,6 @@
     {
         Pdf = 0,
         Word = 1,
+        Json = 2
     }
 }

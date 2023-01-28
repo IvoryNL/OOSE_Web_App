@@ -1,4 +1,5 @@
 ﻿@using Logic.Constants;
+@using Logic.Enums;
 @using Logic.Models;
 @{
     ViewData["Title"] = "Onderwijs";
@@ -7,7 +8,7 @@
 <div class="onderwijs-page">
     <h3>Onderwijseenheid</h3>
     <div class="content">
-        @Html.ActionLink("Exporteer onderwijseenheid .json", "ExporteerOnderwijseenheid", "Onderwijs", new { onderwijseenheidId = Model.Id, bestandsFormaat = Bestandsformaten.JSON })
+        @Html.ActionLink("Exporteer onderwijseenheid .json", "ExporteerOnderwijseenheid", "Onderwijs", new { onderwijseenheidId = Model.Id, downloadFormaat = DownloadFormaten.Json })
         <table>
             <tr>
                 <td>@Html.LabelFor(m => m.Naam)</td>

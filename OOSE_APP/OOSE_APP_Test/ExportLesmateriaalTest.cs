@@ -12,7 +12,7 @@ namespace OOSE_APP_Test
         public ExportLesmateriaalTest()
         {
             lesmateriaal = new Lesmateriaal();
-            lesmateriaal.ExporteerDocument = new ExportLesmateriaalToPdfStrategy();
+            lesmateriaal.SetExportStrategy(new ExportLesmateriaalToPdfStrategy());
             lesmateriaal.Id = 1;
             lesmateriaal.AuteurId = 1;
             lesmateriaal.Naam = "Use Case Diagrammen";
@@ -24,7 +24,7 @@ namespace OOSE_APP_Test
         [Fact]
         public void ExportNaarPdfBytesTest()
         {
-            var inhoud = lesmateriaal.ExporteerDocument.ExportToDocument(lesmateriaal.LesmateriaalInhoud.FirstOrDefault().Inhoud);
+            var inhoud = lesmateriaal.Exporteer();
             Assert.NotNull(inhoud);
         }
     }

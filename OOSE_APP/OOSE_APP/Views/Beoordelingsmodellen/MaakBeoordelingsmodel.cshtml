@@ -22,7 +22,8 @@
                         Model.Tentamens.Select(m => new SelectListItem
                         {
                             Value = m.Id.ToString(),
-                            Text = m.Naam
+                            Text = m.Naam,
+                            Selected = !string.IsNullOrEmpty(Model.GeselecteerdeTentamenId) && Model.GeselecteerdeTentamenId == m.Id.ToString()
                         }))
                     </td>
                 </tr>

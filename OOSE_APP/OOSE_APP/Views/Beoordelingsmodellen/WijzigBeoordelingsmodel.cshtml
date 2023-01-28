@@ -23,13 +23,14 @@
                         {
                             Value = m.Id.ToString(),
                             Text = m.Naam,
-                            Selected = Model.Beoordelingsmodel.TentamenId == m.Id
+                            Selected = !string.IsNullOrEmpty(Model.GeselecteerdeTentamenId) && Model.GeselecteerdeTentamenId == m.Id.ToString()
                         }))
                     </td>
                 </tr>
             </table>
             @Html.HiddenFor(m => m.Beoordelingsmodel.Id)
             @Html.HiddenFor(m => m.Beoordelingsmodel.DocentId)
+            @Html.HiddenFor(m => m.Tentamens)
             <button class="btn btn-primary">Wijzig</button>
         }
     </div>

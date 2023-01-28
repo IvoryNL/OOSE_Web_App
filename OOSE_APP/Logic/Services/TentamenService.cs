@@ -35,6 +35,20 @@ namespace Logic.Services
             return await _httpService.GetAsync<List<Tentamen>>(uri, jwtToken); 
         }
 
+        public async Task<List<Tentamen>> GetAllTentamensZonderBeoordelingsmodel(string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Tentamen/GetAllTentamensZonderBeoordelingsmodel";
+
+            return await _httpService.GetAsync<List<Tentamen>>(uri, jwtToken);
+        }
+
+        public async Task<List<Tentamen>> GetAllTentamensZonderBeoordelingsmodelVoorWijziging(int beoordelingsmodelId, string jwtToken)
+        {
+            var uri = $"{ApiUrl.BASE_URL}/Tentamen/GetAllTentamensZonderBeoordelingsmodelVoorWijziging/{beoordelingsmodelId}";
+
+            return await _httpService.GetAsync<List<Tentamen>>(uri, jwtToken);
+        }
+
         public async Task<List<Tentamen>> GetAllTentamensVanOnderwijsuitvoeringStudent(int id, string jwtToken)
         {
             var uri = $"{ApiUrl.BASE_URL}/Tentamen/GetAllTentamensVanOnderwijsuitvoeringStudent/{id}";

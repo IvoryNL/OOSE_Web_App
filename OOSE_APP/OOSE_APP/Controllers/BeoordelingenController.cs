@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.Helpers;
 using Logic.Enums;
 using Logic.Models;
-using Status = Logic.Enums.Status;
 
 namespace Presentation.Controllers
 {
@@ -13,17 +12,21 @@ namespace Presentation.Controllers
         private readonly IKlasService _klasService;
         private readonly IBeoordelingService _beoordelingService;
         private readonly IBeoordelingsmodelService _beoordelingsmodelService;
+        private readonly IOpleidingService _opleidingService;
+
 
         public BeoordelingenController(
             IGebruikerService gebruikerService,
             IKlasService klasService,
             IBeoordelingService beoordelingService,
-            IBeoordelingsmodelService beoordelingsmodelService)
+            IBeoordelingsmodelService beoordelingsmodelService,
+            IOpleidingService opleidingService)
         {
             _gebruikerService = gebruikerService;
             _klasService = klasService;
             _beoordelingService = beoordelingService;
             _beoordelingsmodelService = beoordelingsmodelService;
+            _opleidingService = opleidingService;
         }
         public async Task<IActionResult> Index()
         {
@@ -40,7 +43,28 @@ namespace Presentation.Controllers
             }
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
-            var klassen = await _klasService.GetAllKlassen(jwtToken);
+            var opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
+
+            return View(opleidingen);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> KlassenOverzicht(int opleidingId)
+        {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            SetIdentity();
+
+            if (!IsWerknemer())
+            {
+                return Unauthorized();
+            }
+
+            var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
+            var klassen = await _klasService.GetKlasenByOpleidingId(opleidingId, jwtToken);
 
             return View(klassen);
         }

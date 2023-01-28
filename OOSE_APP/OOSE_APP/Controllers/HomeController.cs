@@ -1,5 +1,4 @@
-﻿using Logic.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers;
 
 namespace OOSE_APP.Controllers

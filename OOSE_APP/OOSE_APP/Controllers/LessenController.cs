@@ -2,7 +2,6 @@
 using Logic.DocumentExporter.Lesmaterialen;
 using Logic.Enums;
 using Logic.Models;
-using Logic.Models.DocumentExportEnImport;
 using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Helpers;
@@ -47,6 +46,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Overzicht(int id, ControllerActionTypes actionType) 
         {
+            if (!IsUserLoggedIn())
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             SetIdentity();
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
@@ -86,7 +90,6 @@ namespace Presentation.Controllers
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var lesMaterialen = await _lesmateriaalService.GetAllLesmaterialen(jwtToken);
-
             var viewModel = new LessenViewModel();
             viewModel.LesId = lesId;
             viewModel.Lesmaterialen = lesMaterialen;
@@ -160,7 +163,6 @@ namespace Presentation.Controllers
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var leeruitkomsten = await _leeruitkomstService.GetAllLeeruitkomsten(jwtToken);
             var opleidingen = await _opleidingService.GetAllOpleidingen(jwtToken);
-
             var viewModel = new LessenViewModel();
             viewModel.LesId = lesId;
             viewModel.Leeruitkomsten = leeruitkomsten;
@@ -318,6 +320,8 @@ namespace Presentation.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
+            SetIdentity();
+
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var les = await _lesService.GetLesById(id, jwtToken);
 
@@ -341,14 +345,13 @@ namespace Presentation.Controllers
             if (downloadFormaat == DownloadFormaten.Pdf)
             {
                 bestandsformaat = Bestandsformaten.PDF;
-                lesmateriaal.ExporteerDocument = new ExportLesmateriaalToPdfStrategy();
+                lesmateriaal.SetExportStrategy(new ExportLesmateriaalToPdfStrategy());
             }
 
-            var lesmateriaalInhoud = lesmateriaal.LesmateriaalInhoud.OrderByDescending(l => l.Versie).FirstOrDefault().Inhoud;
-            var lesmateriaalContentBytes = lesmateriaal.ExporteerDocument.ExportToDocument(lesmateriaalInhoud);
+            var lesmateriaalContentBytes = lesmateriaal.Exporteer();
             var outputBestand = $"{lesmateriaal.Naam}{bestandsformaat}";
 
-            return CreateDownloadFile(lesmateriaalContentBytes, ContentTypes.JSON, outputBestand);
+            return CreateDownloadFile(lesmateriaalContentBytes, ContentTypes.PDF, outputBestand);
         }
     }
 }

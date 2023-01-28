@@ -3,6 +3,7 @@ using Logic.DocumentExporter.Onderwijseenheden;
 using Logic.DocumentExporter.Onderwijsmodules;
 using Logic.DocumentImporter.Onderwijseenheden;
 using Logic.DocumentImporter.Onderwijsmodules;
+using Logic.Enums;
 using Logic.Models;
 using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -711,12 +712,12 @@ namespace Presentation.Controllers
             }
 
             var onderwijsmodule = new Logic.Models.DocumentExportEnImport.Onderwijsmodule();
-            onderwijsmodule.ImporteerDocument = new ImportOnderwijsmoduleFromJsonStringStrategy();
+            onderwijsmodule.SetImportStrategy(new ImportOnderwijsmoduleFromJsonStringStrategy());
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
 
             try
             {
-                onderwijsmodule = onderwijsmodule.ImporteerDocument.ImportDocument(await ReadFileContent(viewModel.File));
+                onderwijsmodule = onderwijsmodule.Importeer(await ReadFileContent(viewModel.File));
                 await _onderwijsmoduleService.ImporteerOnderwijsmodule(onderwijsmodule, jwtToken);
             }
             catch (JsonSerializationException jsonException)
@@ -736,7 +737,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExporteerOnderwijsmodule(int onderwijsmoduleId, string bestandsformaat)
+        public async Task<IActionResult> ExporteerOnderwijsmodule(int onderwijsmoduleId, DownloadFormaten downloadFormaat)
         {
             if (!IsUserLoggedIn())
             {
@@ -752,12 +753,18 @@ namespace Presentation.Controllers
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijsmodule = await _onderwijsmoduleService.GetOnderwijsmoduleVoorExportById(onderwijsmoduleId, jwtToken);
-            onderwijsmodule.ExporteerDocument = new ExportOnderwijsmoduleToJsonStrategy();
+            var bestandsformaat = string.Empty;
+            
+            if (downloadFormaat == DownloadFormaten.Json)
+            {
+                bestandsformaat = Bestandsformaten.JSON;
+                onderwijsmodule.SetExportStrategy(new ExportOnderwijsmoduleToJsonStrategy());
+            }
 
-            var onderwijsmoduleConentBytes = onderwijsmodule.ExporteerDocument.ExportToDocument(onderwijsmodule);
+            var onderwijsmoduleContentBytes = onderwijsmodule.Exporteer();
             var outputBestand = $"{onderwijsmodule.Naam}{bestandsformaat}";
 
-            return CreateDownloadFile(onderwijsmoduleConentBytes, ContentTypes.JSON, outputBestand);
+            return CreateDownloadFile(onderwijsmoduleContentBytes, ContentTypes.JSON, outputBestand);
         }
 
         [HttpGet]
@@ -797,12 +804,12 @@ namespace Presentation.Controllers
             }
 
             var onderwijseenheid = new Logic.Models.DocumentExportEnImport.Onderwijseenheid();
-            onderwijseenheid.ImporteerDocument = new ImportOnderwijseenheidFromJsonStringStrategy();
+            onderwijseenheid.SetImportStrategy(new ImportOnderwijseenheidFromJsonStringStrategy());
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
 
             try
             {
-                onderwijseenheid = onderwijseenheid.ImporteerDocument.ImportDocument(await ReadFileContent(viewModel.File));
+                onderwijseenheid = onderwijseenheid.Importeer(await ReadFileContent(viewModel.File));
                 await _onderwijsmoduleService.ImporteerOnderwijseenheid(viewModel.OnderwijsmoduleId, onderwijseenheid, jwtToken);
             }            
             catch (JsonSerializationException jsonException)
@@ -822,7 +829,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExporteerOnderwijseenheid(int onderwijseenheidId, string bestandsformaat)
+        public async Task<IActionResult> ExporteerOnderwijseenheid(int onderwijseenheidId, DownloadFormaten downloadFormaat)
         {
             if (!IsUserLoggedIn())
             {
@@ -838,12 +845,18 @@ namespace Presentation.Controllers
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var onderwijseenheid = await _onderwijseenheidService.GetOnderwijseenheidVoorExportById(onderwijseenheidId, jwtToken);
-            onderwijseenheid.ExporteerDocument = new ExportOnderwijseenheidToJsonStrategy();
+            var bestandsformaat = string.Empty;
 
-            var onderwijsmoduleConentBytes = onderwijseenheid.ExporteerDocument.ExportToDocument(onderwijseenheid);
+            if (downloadFormaat == DownloadFormaten.Json)
+            {
+                bestandsformaat = Bestandsformaten.JSON;
+                onderwijseenheid.SetExportStrategy(new ExportOnderwijseenheidToJsonStrategy());
+            }
+
+            var onderwijseenheidContentBytes = onderwijseenheid.Exporteer();
             var outputBestand = $"{onderwijseenheid.Naam}{bestandsformaat}";
 
-            return CreateDownloadFile(onderwijsmoduleConentBytes, ContentTypes.JSON, outputBestand);
+            return CreateDownloadFile(onderwijseenheidContentBytes, ContentTypes.JSON, outputBestand);
         }
     }
 }

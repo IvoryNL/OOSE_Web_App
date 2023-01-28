@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj" />
-    <ProjectReference Include="..\OOSE_APP\Presentation.csproj" />
+    <ProjectReference Include="..\OOSE_APP\OOSE_APP.csproj" />
   </ItemGroup>
 
 </Project>

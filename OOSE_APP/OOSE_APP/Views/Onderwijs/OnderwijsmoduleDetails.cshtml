@@ -1,4 +1,5 @@
-﻿@using Logic.Models;
+﻿@using Logic.Enums;
+@using Logic.Models;
 @using Logic.Constants;
 @{
     ViewData["Title"] = "Onderwijs";
@@ -13,7 +14,7 @@
             ViewData.Remove("Consistentie");
         }
 
-        @Html.ActionLink("Exporteer onderwijsmodule .json", "ExporteerOnderwijsmodule", "Onderwijs", new { onderwijsmoduleId = Model.Id, bestandsFormaat = Bestandsformaten.JSON })
+        @Html.ActionLink("Exporteer onderwijsmodule .json", "ExporteerOnderwijsmodule", "Onderwijs", new { onderwijsmoduleId = Model.Id, downloadFormaat = DownloadFormaten.Json })
         @Html.ActionLink("Importeer onderwijseenheid", "ImporteerOnderwijseenheid", "Onderwijs", new { onderwijsmoduleId = Model.Id })
         <table> 
             <tr>

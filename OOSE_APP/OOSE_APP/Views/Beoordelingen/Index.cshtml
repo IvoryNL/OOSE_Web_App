@@ -2,18 +2,19 @@
 @{
     ViewData["Title"] = "Beoordelingen";
 }
-@model List<Klas>
+@model List<Opleiding>
 <div class="beoordelingen-page">
-    <h3>Klassenoverzicht</h3>
+    <h3>Opleidingoverzicht</h3>
     <div class="content">
         <table>
-            @foreach (var klas in Model)
+            @foreach (var opleiding in Model)
             {
                 <tr>
-                    <td>@klas.Klasnaam</td>
-                    <td>@Html.ActionLink("Studenten", "BekijkStudenten", "Beoordelingen", new { id = klas.Id })</td>
+                    <td>@opleiding.Naam</td>
+                    <td>@Html.ActionLink("Klassen", "KlassenOverzicht", "Beoordelingen", new { opleidingId = opleiding.Id })</td>
                 </tr>
             }
         </table>
     </div>
 </div>
+

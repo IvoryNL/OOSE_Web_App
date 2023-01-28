@@ -10,6 +10,10 @@ namespace Logic.Services.Interfaces
 
         Task<List<Tentamen>> GetAllTentamensVanOnderwijsuitvoeringStudent(int id, string jwtToken);
 
+        Task<List<Tentamen>> GetAllTentamensZonderBeoordelingsmodel(string jwtToken);
+
+        Task<List<Tentamen>> GetAllTentamensZonderBeoordelingsmodelVoorWijziging(int beoordelingsmodelId, string jwtToken);
+
         Task KoppelLeeruitkomstAanTentamen(int id, Tentamen tentamen, string jwtToken);
 
         Task OntkoppelLeeruitkomstVanTentamen(int id, int leeruitkomstId, string jwtToken);

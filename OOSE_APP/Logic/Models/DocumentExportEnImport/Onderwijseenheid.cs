@@ -23,9 +23,29 @@ namespace Logic.Models.DocumentExportEnImport
         public List<Leerdoel>? Leerdoelen { get; set; }
 
         [JsonIgnore]
-        public IExportDocument<Onderwijseenheid> ExporteerDocument { get; set; }
+        private IExportDocument<Onderwijseenheid> ExporteerDocument { get; set; }
 
         [JsonIgnore]
-        public IImportDocument<Onderwijseenheid> ImporteerDocument { get; set; }
+        private IImportDocument<Onderwijseenheid> ImporteerDocument { get; set; }
+
+        public void SetExportStrategy(IExportDocument<Onderwijseenheid> exportDocumentStrategy)
+        {
+            ExporteerDocument = exportDocumentStrategy;
+        }
+
+        public byte[] Exporteer()
+        {
+            return ExporteerDocument.ExportToDocument(this);
+        }
+
+        public void SetImportStrategy(IImportDocument<Onderwijseenheid> importDocumentStrategy)
+        {
+            ImporteerDocument = importDocumentStrategy;
+        }
+
+        public Onderwijseenheid Importeer(byte[] contentBytes)
+        {
+            return ImporteerDocument.ImportDocument(contentBytes);
+        }
     }
 }

@@ -90,7 +90,7 @@ namespace Presentation.Controllers
 
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new BeoordelingsmodelViewModel();
-            viewModel.Tentamens = await _tentamenService.GetAllTentamens(jwtToken);
+            viewModel.Tentamens = await _tentamenService.GetAllTentamensZonderBeoordelingsmodel(jwtToken);
 
             return View(viewModel);
         }
@@ -114,7 +114,8 @@ namespace Presentation.Controllers
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
             viewModel.Beoordelingsmodel.DocentId = gebruiker.Id;
-            
+            viewModel.Tentamens = await _tentamenService.GetAllTentamensZonderBeoordelingsmodel(jwtToken);
+
             try
             {
                 await _beoordelingsmodelService.CreateBeoordelingsmodel(viewModel.Beoordelingsmodel, jwtToken);
@@ -147,7 +148,7 @@ namespace Presentation.Controllers
             var jwtToken = JwtTokenHelper.GetJwtTokenFromSession(HttpContext);
             var viewModel = new BeoordelingsmodelViewModel();
             viewModel.Beoordelingsmodel = await _beoordelingsmodelService.GetBeoordelingsmodelById(id, jwtToken);
-            viewModel.Tentamens = await _tentamenService.GetAllTentamens(jwtToken);
+            viewModel.Tentamens = await _tentamenService.GetAllTentamensZonderBeoordelingsmodelVoorWijziging(id, jwtToken);
 
             return View(viewModel);
         }
@@ -171,6 +172,7 @@ namespace Presentation.Controllers
             var gebruiker = await GetIngelogdeGebruikerByEmail(_gebruikerService, jwtToken);
             viewModel.Beoordelingsmodel.DocentId = gebruiker.Id;
             viewModel.Beoordelingsmodel.TentamenId = int.Parse(viewModel.GeselecteerdeTentamenId);
+            viewModel.Tentamens = await _tentamenService.GetAllTentamensZonderBeoordelingsmodelVoorWijziging(viewModel.Beoordelingsmodel.Id, jwtToken);
 
             try
             {
